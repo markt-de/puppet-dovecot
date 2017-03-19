@@ -1,0 +1,10 @@
+<%- | Dovecot::ConfigEntries $entries, Array[String] $includes = [] | -%>
+# This file is managed by puppet. DO NOT MODIFY.
+<% $entries.each |$name, $value| { %>
+<% dovecot::print_config_lines($name, $value).each |$line| { -%>
+<%= $line %>
+<% } -%>
+<% } -%>
+<% $includes.each |$include| { %>
+!include <%= $include %>
+<% } -%>
