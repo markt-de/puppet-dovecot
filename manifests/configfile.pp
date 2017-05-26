@@ -1,25 +1,37 @@
-# Class: dovecot::configfile
+# dovecot::configfile
 # ===========================
 #
-# Simple file resource that notifies the dovecot service.
+# @summary manages a single dovecot config file
 #
-# === Authors
+# @note This class is only for internal use, use dovecot::config instead.
 #
-# Bernhard Frauendienst <puppet@nospam.obeliks.de>
+# @param file  the file to put the entry in
+# @param comment an optional comment to be printed at the top of the file instead of
+#   the default warning
+# @param ensure whether the file should be `present` or `absent`
 #
-# === Copyright
+# @see dovecot::config
 #
-# Copyright 2017 Bernhard Frauendienst, unless otherwise noted.
+# @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
-define dovecot::configfile(
-  String[1] $relpath = "conf.d/${title}.conf",
-  Dovecot::ConfigEntries $entries,
-  Dovecot::ConfigIncludes $includes = [],
+define dovecot::configfile (
+  Stdlib::Absolutepath $file        = $title,
+  Optional[String] $comment         = undef,
+  Enum['present', 'absent'] $ensure = 'present',
 ) {
-  include dovecot
+  concat { $file:
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    warn   => !$comment,
+    order  => 'alpha',
+    notify => Service['dovecot'],
+  }
 
-  dovecot::file { $title:
-    path    => "${::dovecot::config_path}/${relpath}",
-    content => epp("dovecot/configfile", { entries => $entries, includes => $includes })
+  if ($comment) {
+    concat::fragment { "dovecot ${file} config 01 file warning comment":
+      target => $file,
+      content => join(suffix(prefix(split($comment, '\n'), "# "), "\n")),
+    }
   }
 }

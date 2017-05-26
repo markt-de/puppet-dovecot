@@ -1,15 +1,9 @@
-# Class: dovecot::file
+# dovecot::file
 # ===========================
 #
-# Simple file resource that notifies the dovecot service.
+# @summary simple file resource that notifies the dovecot service.
 #
-# === Authors
-#
-# Bernhard Frauendienst <puppet@nospam.obeliks.de>
-#
-# === Copyright
-#
-# Copyright 2017 Bernhard Frauendienst, unless otherwise noted.
+# @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
 define dovecot::file(
   $path,
