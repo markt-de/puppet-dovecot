@@ -31,49 +31,44 @@ By default, this package...
 
 ### Beginning with dovecot
 
-The dovecot::config resource can be used to specify custom configuration entries.
-The easiest way to use it, is to put both the file and the hierachical config
-key into the resource title:
+While on a puppet-managed host, splitting the config into multiple conf.d files provides 
+not much advantage, this module supports managing both the dovecot.conf file and several
+conf.d files, by specifying the file param.
 
-```puppet
+The dovecot class takes two parameters, $config for dovecot.conf entries and $configs for
+conf.d file entries:
+
+```
 class { 'dovecot':
   plugins => ['imap', 'lmtp'],
+  config => {
+    protocols => 'imap lmtp',
+    listen    => '*, ::',
+  },
+  configs => {
+    '10-auth' => {
+      passdb => {
+        driver => 'passwd-file',
+        args   => 'username_format=%u /etc/dovecot/virtual_accounts_passwd',
+      },
+    },
+    '10-logging' => {
+      log_path => 'syslog',
+    },
+  }
 }
-dovecot::config {
-  'protocols': value => 'imap lmtp';
-  'listen': value => '*, ::';
-  'passdb.driver': value => 'passwd-file';
-  'passdb.args': value => 'username_format=%u /etc/dovecot/virtual_accounts_passwd'
-}
-```
 
-This results the following config file `/etc/dovecot/dovecot.conf`:
-
-```
-# This file is managed by Puppet. DO NOT EDIT.
-listen = *, ::
-protocols = imap sieve lmtp
-passdb {
-  args = scheme=CRYPT username_format=%u /etc/dovecot/virtual_accounts_passwd
-  driver = passwd-file
-}
-```
-
-The provided `dovecot::create_config_resources` and `dovecot::create_config_file_resources`
-functions allow for a much more convenient usage, especially with values stored in hiera:
-
-```puppet
-class profile::dovecot {
-  dovecot::create_config_resources(hiera_hash("${title}::config", {}))
-  dovecot::create_config_file_resources(hiera_hash("${title}::configs", {}))
-}
-```
+This can be conveniently used from hiera:
 
 ```yaml
-profile::dovecot::config:
+dovecot::plugins:
+  - imap
+  - lmtp
+  - sieve
+dovecot::config:
   protocols: imap sieve lmtp
   hostname: "%{::fqdn}"  
-profile::dovecot::configs:
+dovecot::configs:
   '10-auth':
     disable_plaintext_auth: yes
     passdb:
@@ -92,6 +87,28 @@ profile::dovecot::configs:
     ssl_cert: '</etc/dovecot/ssl/dovecot.crt'
     ssl_key: '</etc/dovecot/ssl/dovecot.key'    
 ```
+
+
+
+If you want to use the dovecot:config resource directly, the easiest way is to put both the 
+file (optional) and the hierachical config key into the resource title:
+
+```puppet
+dovecot::config {
+  'protocols': value => 'imap lmtp';
+  'listen': 
+     value => '*, ::',
+     comment => 'Listen on all interfaces',
+  ;
+  '10-auth:passdb.driver': value => 'passwd-file';
+  '10-auth:passdb.args': value => 'username_format=%u /etc/dovecot/virtual_accounts_passwd'
+}
+```
+
+For advanced use-cases you can also use the provided `dovecot::create_config_resources` and 
+`dovecot::create_config_file_resources` functions, that are used to handle the $config and 
+$configs parameters.
+
 
 
 ## Reference

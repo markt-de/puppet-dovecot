@@ -5,6 +5,8 @@
 #
 # @param config_path the path to the dovecot config dir
 # @param plugins the list of plugins to install
+# @param config a hash of config file entries, with nested hashes parsed as sections
+# @param configs a hash of conf.d file names to $config-style hashes
 # @param packages_install whether to install the dovecot core and plugin packages
 # @param service_manage whether to manage the dovecot service
 # @param purge_unmanaged whether to purge all unmanaged files in the dovecot directory
@@ -25,6 +27,8 @@
 class dovecot(
     String $config_path = '/etc/dovecot',
     Array[String[1]] $plugins = [],
+    Hash $config = {},
+    Hash $configs = {},
     Boolean $packages_install = true,
     Boolean $service_manage = true,
     Boolean $purge_unmanaged = true,
@@ -59,4 +63,7 @@ class dovecot(
       purge => 'true',
     }
   }
+
+  dovecot::create_config_resources($config)
+  dovecot::create_config_file_resources($configs)
 }
