@@ -68,8 +68,6 @@
 <ul><li>
 <p><a href="#what-dovecot-affects">What dovecot affects</a></p>
 </li><li>
-<p><a href="#setup-requirements">Setup requirements</a></p>
-</li><li>
 <p><a href="#beginning-with-dovecot">Beginning with dovecot</a></p>
 </li></ul>
 </li><li>
@@ -87,84 +85,112 @@ module</a></p>
 
 <h2 id="label-Description">Description</h2>
 
-<p>Start with a one- or two-sentence summary of what the module does and/or
-what problem it solves. This is your 30-second elevator pitch for your
-module. Consider including OS/Puppet version it works with.</p>
+<p>This module installs and manages the dovecot imap server and its plugins,
+and provides resources and functions to configure the dovecot system. It
+does, however, not configure any of those systems beyond the upstream
+defaults.</p>
 
-<p>You can give more descriptive information in a second paragraph. This
-paragraph should answer the questions: “What does this module <em>do</em>?”
-and “Why would I use it?” If your module has a range of functionality
-(installation, configuration, management, etc.), this is the time to
-mention it.</p>
+<p>This module is intended to work with Puppet 4 and has been tested with
+dovecot 2.2.22 on Ubuntu 16.04. Patches to support other setups are
+welcome.</p>
 
 <h2 id="label-Setup">Setup</h2>
 
-<h3 id="label-What+dovecot+affects+OPTIONAL">What dovecot affects <strong>OPTIONAL</strong></h3>
+<h3 id="label-What+dovecot+affects">What dovecot affects</h3>
 
-<p>If it&#39;s obvious what your module touches, you can skip this section.
-For example, folks can probably figure out that your mysql_instance module
-affects their MySQL instances.</p>
-
-<p>If there&#39;s more that they should know about, though, this is the place
-to mention:</p>
+<p>By default, this package…</p>
 <ul><li>
-<p>A list of files, packages, services, or operations that the module will
-alter,  impact, or execute.</p>
+<p>installs the dovecot package</p>
 </li><li>
-<p>Dependencies that your module automatically installs.</p>
-</li><li>
-<p>Warnings or other important notices.</p>
+<p>recursively purges all dovecot config</p>
 </li></ul>
-
-<h3 id="label-Setup+Requirements+OPTIONAL">Setup Requirements <strong>OPTIONAL</strong></h3>
-
-<p>If your module requires anything extra before setting up (pluginsync
-enabled, etc.), mention it here.</p>
-
-<p>If your most recent release breaks compatibility or requires particular
-steps for upgrading, you might want to include an additional “Upgrading”
-section here.</p>
 
 <h3 id="label-Beginning+with+dovecot">Beginning with dovecot</h3>
 
-<p>The very basic steps needed for a user to get the module up and running.
-This can include setup steps, if necessary, or it can be an example of the
-most basic use of the module.</p>
+<p>The dovecot::config resource can be used to specify custom configuration
+entries. The easiest way to use it, is to put both the file and the
+hierachical config key into the resource title:</p>
 
-<h2 id="label-Usage">Usage</h2>
+<pre class="code ruby"><code class="ruby">class { &#39;dovecot&#39;:
+  plugins =&gt; [&#39;imap&#39;, &#39;lmtp&#39;],
+}
+dovecot::config {
+  &#39;protocols&#39;: value =&gt; &#39;imap lmtp&#39;;
+  &#39;listen&#39;: value =&gt; &#39;*, ::&#39;;
+  &#39;passdb.driver&#39;: value =&gt; &#39;passwd-file&#39;;
+  &#39;passdb.args&#39;: value =&gt; &#39;username_format=%u /etc/dovecot/virtual_accounts_passwd&#39;
+}</code></pre>
 
-<p>This section is where you describe how to customize, configure, and do the
-fancy stuff with your module here. It&#39;s especially helpful if you
-include usage examples and code samples for doing things with your module.</p>
+<p>This results the following config file
+<code>/etc/dovecot/dovecot.conf</code>:</p>
+
+<pre class="code ruby"><code class="ruby"># This file is managed by Puppet. DO NOT EDIT.
+listen = *, ::
+protocols = imap sieve lmtp
+passdb {
+  args = scheme=CRYPT username_format=%u /etc/dovecot/virtual_accounts_passwd
+  driver = passwd-file
+}</code></pre>
+
+<p>The provided <code>dovecot::create_config_resources</code> and
+<code>dovecot::create_config_file_resources</code> functions allow for a
+much more convenient usage, especially with values stored in hiera:</p>
+
+<pre class="code ruby"><code class="ruby">class profile::dovecot {
+  dovecot::create_config_resources(hiera_hash(&quot;${title}::config&quot;, {}))
+  dovecot::create_config_file_resources(hiera_hash(&quot;${title}::configs&quot;, {}))
+}</code></pre>
+
+<pre class="code ruby"><code class="ruby">profile::dovecot::config:
+  protocols: imap sieve lmtp
+  hostname: &quot;%{::fqdn}&quot;  
+profile::dovecot::configs:
+  &#39;10-auth&#39;:
+    disable_plaintext_auth: yes
+    passdb:
+      driver: passwd-file
+      args: scheme=CRYPT username_format=%u /etc/dovecot/virtual_accounts_passwd
+  &#39;10-master&#39;:
+    default_process_limit: 200
+    default_client_limit: 2000
+    service lmtp:
+      unix_listener /var/spool/postfix/private/dovecot-lmtp:
+        user: postfix
+        group: postfix
+        mode: &#39;0600&#39;
+  &#39;10-ssl&#39;:
+    ssl: yes
+    ssl_cert: &#39;&lt;/etc/dovecot/ssl/dovecot.crt&#39;
+    ssl_key: &#39;&lt;/etc/dovecot/ssl/dovecot.key&#39;</code></pre>
 
 <h2 id="label-Reference">Reference</h2>
 
-<p>Here, include a complete list of your module&#39;s classes, types,
-providers, facts, along with the parameters for each. Users refer to this
-section (thus the name “Reference”) to find specific details; most users
-don&#39;t read it per se.</p>
+<p>See the reference generated by puppet strings on <a
+href="https://oxc.github.io/puppet-dovecot">oxc.github.io/puppet-dovecot</a>/</p>
 
 <h2 id="label-Limitations">Limitations</h2>
 
-<p>This is where you list OS compatibility, version compatibility, etc. If
-there are Known Issues, you might want to include them under their own
-heading here.</p>
+<p>OS Versions tested:</p>
+<ul><li>
+<p>Ubuntu 16.04</p>
+</li></ul>
+
+<p>dovecot versions tested:</p>
+<ul><li>
+<p>2.2.22</p>
+</li></ul>
+
+<p>Feel free to let me know if it correctly works on a different OS/setup, or
+submit patches if it doesn&#39;t.</p>
 
 <h2 id="label-Development">Development</h2>
 
-<p>Since your module is awesome, other users will want to play with it. Let
-them know what the ground rules for contributing are.</p>
-
-<h2 id="label-Release+Notes-2FContributors-2FEtc.+Optional">Release Notes/Contributors/Etc. <strong>Optional</strong></h2>
-
-<p>If you aren&#39;t using changelog, put your release notes here (though you
-should consider using changelog). You can also add any additional sections
-you feel are necessary or important to include here. Please use the
-<code>##</code> header.</p>
+<p>You&#39;re welcome to submit patches and issues to the issue tracker on
+Github.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Fri May 26 03:10:47 2017 by
+  Generated on Fri May 26 11:03:50 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.3.4).
 </div>
