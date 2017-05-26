@@ -131,20 +131,35 @@ and $configs for conf.d file entries:</p>
       log_path =&gt; &#39;syslog&#39;,
     },
   }
-}
+}</code></pre>
 
-This can be conveniently used from hiera:</code></pre>
+<p>This can be conveniently used from hiera:</p>
 
-<p>yaml dovecot::plugins:  - imap  - lmtp  - sieve dovecot::config: 
-protocols: imap sieve lmtp  hostname: “%fqdn”<br> dovecot::configs: 
-&#39;10-auth&#39;:  disable_plaintext_auth: yes  passdb:  driver:
-passwd-file  args: scheme=CRYPT username_format=%u
-/etc/dovecot/virtual_accounts_passwd  &#39;10-master&#39;: 
-default_process_limit: 200  default_client_limit: 2000  service lmtp: 
-unix_listener /var/spool/postfix/private/dovecot-lmtp:  user: postfix 
-group: postfix  mode: &#39;0600&#39;  &#39;10-ssl&#39;:  ssl: yes 
-ssl_cert: &#39;&lt;/etc/dovecot/ssl/dovecot.crt&#39;  ssl_key:
-&#39;&lt;/etc/dovecot/ssl/dovecot.key&#39;<br> “`</p>
+<pre class="code ruby"><code class="ruby">dovecot::plugins:
+  - imap
+  - lmtp
+  - sieve
+dovecot::config:
+  protocols: imap sieve lmtp
+  hostname: &quot;%{::fqdn}&quot;  
+dovecot::configs:
+  &#39;10-auth&#39;:
+    disable_plaintext_auth: yes
+    passdb:
+      driver: passwd-file
+      args: scheme=CRYPT username_format=%u /etc/dovecot/virtual_accounts_passwd
+  &#39;10-master&#39;:
+    default_process_limit: 200
+    default_client_limit: 2000
+    service lmtp:
+      unix_listener /var/spool/postfix/private/dovecot-lmtp:
+        user: postfix
+        group: postfix
+        mode: &#39;0600&#39;
+  &#39;10-ssl&#39;:
+    ssl: yes
+    ssl_cert: &#39;&lt;/etc/dovecot/ssl/dovecot.crt&#39;
+    ssl_key: &#39;&lt;/etc/dovecot/ssl/dovecot.key&#39;</code></pre>
 
 <p>If you want to use the dovecot:config resource directly, the easiest way is
 to put both the file (optional) and the hierachical config key into the
@@ -192,7 +207,7 @@ Github.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Fri May 26 11:53:14 2017 by
+  Generated on Fri May 26 15:22:00 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.3.4).
 </div>
