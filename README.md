@@ -38,7 +38,7 @@ conf.d files, by specifying the file param.
 The dovecot class takes two parameters, $config for dovecot.conf entries and $configs for
 conf.d file entries:
 
-```
+```puppet
 class { 'dovecot':
   plugins => ['imap', 'lmtp'],
   config => {
@@ -57,6 +57,7 @@ class { 'dovecot':
     },
   }
 }
+```
 
 This can be conveniently used from hiera:
 
