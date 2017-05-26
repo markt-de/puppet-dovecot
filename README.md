@@ -33,7 +33,7 @@ By default, this package...
 
 While on a puppet-managed host, splitting the config into multiple conf.d files provides 
 not much advantage, this module supports managing both the dovecot.conf file and several
-conf.d files, by specifying the file param.
+conf.d files.
 
 The dovecot class takes two parameters, $config for dovecot.conf entries and $configs for
 conf.d file entries:
@@ -89,7 +89,9 @@ dovecot::configs:
     ssl_key: '</etc/dovecot/ssl/dovecot.key'    
 ```
 
-
+For advanced use-cases you can also use the provided `dovecot::create_config_resources` and 
+`dovecot::create_config_file_resources` functions, that are used to handle the $config and 
+$configs parameters.
 
 If you want to use the dovecot:config resource directly, the easiest way is to put both the 
 file (optional) and the hierachical config key into the resource title:
@@ -106,11 +108,16 @@ dovecot::config {
 }
 ```
 
-For advanced use-cases you can also use the provided `dovecot::create_config_resources` and 
-`dovecot::create_config_file_resources` functions, that are used to handle the $config and 
-$configs parameters.
+But you can also specify them separately:
 
-
+```puppet
+dovecot::config { 'dovecot passdb driver':
+  file     => '10-auth',
+  sections => ['passdb'],
+  key      => 'driver',
+  value    => 'passwd-file',
+}
+```
 
 ## Reference
 
