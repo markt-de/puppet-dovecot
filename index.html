@@ -107,61 +107,63 @@ welcome.</p>
 
 <h3 id="label-Beginning+with+dovecot">Beginning with dovecot</h3>
 
-<p>The dovecot::config resource can be used to specify custom configuration
-entries. The easiest way to use it, is to put both the file and the
-hierachical config key into the resource title:</p>
+<p>While on a puppet-managed host, splitting the config into multiple conf.d
+files provides not much advantage, this module supports managing both the
+dovecot.conf file and several conf.d files, by specifying the file param.</p>
+
+<p>The dovecot class takes two parameters, $config for dovecot.conf entries
+and $configs for conf.d file entries:</p>
 
 <pre class="code ruby"><code class="ruby">class { &#39;dovecot&#39;:
   plugins =&gt; [&#39;imap&#39;, &#39;lmtp&#39;],
+  config =&gt; {
+    protocols =&gt; &#39;imap lmtp&#39;,
+    listen    =&gt; &#39;*, ::&#39;,
+  },
+  configs =&gt; {
+    &#39;10-auth&#39; =&gt; {
+      passdb =&gt; {
+        driver =&gt; &#39;passwd-file&#39;,
+        args   =&gt; &#39;username_format=%u /etc/dovecot/virtual_accounts_passwd&#39;,
+      },
+    },
+    &#39;10-logging&#39; =&gt; {
+      log_path =&gt; &#39;syslog&#39;,
+    },
+  }
 }
-dovecot::config {
+
+This can be conveniently used from hiera:</code></pre>
+
+<p>yaml dovecot::plugins:  - imap  - lmtp  - sieve dovecot::config: 
+protocols: imap sieve lmtp  hostname: “%fqdn”<br> dovecot::configs: 
+&#39;10-auth&#39;:  disable_plaintext_auth: yes  passdb:  driver:
+passwd-file  args: scheme=CRYPT username_format=%u
+/etc/dovecot/virtual_accounts_passwd  &#39;10-master&#39;: 
+default_process_limit: 200  default_client_limit: 2000  service lmtp: 
+unix_listener /var/spool/postfix/private/dovecot-lmtp:  user: postfix 
+group: postfix  mode: &#39;0600&#39;  &#39;10-ssl&#39;:  ssl: yes 
+ssl_cert: &#39;&lt;/etc/dovecot/ssl/dovecot.crt&#39;  ssl_key:
+&#39;&lt;/etc/dovecot/ssl/dovecot.key&#39;<br> “`</p>
+
+<p>If you want to use the dovecot:config resource directly, the easiest way is
+to put both the file (optional) and the hierachical config key into the
+resource title:</p>
+
+<pre class="code ruby"><code class="ruby">dovecot::config {
   &#39;protocols&#39;: value =&gt; &#39;imap lmtp&#39;;
-  &#39;listen&#39;: value =&gt; &#39;*, ::&#39;;
-  &#39;passdb.driver&#39;: value =&gt; &#39;passwd-file&#39;;
-  &#39;passdb.args&#39;: value =&gt; &#39;username_format=%u /etc/dovecot/virtual_accounts_passwd&#39;
+  &#39;listen&#39;: 
+     value =&gt; &#39;*, ::&#39;,
+     comment =&gt; &#39;Listen on all interfaces&#39;,
+  ;
+  &#39;10-auth:passdb.driver&#39;: value =&gt; &#39;passwd-file&#39;;
+  &#39;10-auth:passdb.args&#39;: value =&gt; &#39;username_format=%u /etc/dovecot/virtual_accounts_passwd&#39;
 }</code></pre>
 
-<p>This results the following config file
-<code>/etc/dovecot/dovecot.conf</code>:</p>
-
-<pre class="code ruby"><code class="ruby"># This file is managed by Puppet. DO NOT EDIT.
-listen = *, ::
-protocols = imap sieve lmtp
-passdb {
-  args = scheme=CRYPT username_format=%u /etc/dovecot/virtual_accounts_passwd
-  driver = passwd-file
-}</code></pre>
-
-<p>The provided <code>dovecot::create_config_resources</code> and
-<code>dovecot::create_config_file_resources</code> functions allow for a
-much more convenient usage, especially with values stored in hiera:</p>
-
-<pre class="code ruby"><code class="ruby">class profile::dovecot {
-  dovecot::create_config_resources(hiera_hash(&quot;${title}::config&quot;, {}))
-  dovecot::create_config_file_resources(hiera_hash(&quot;${title}::configs&quot;, {}))
-}</code></pre>
-
-<pre class="code ruby"><code class="ruby">profile::dovecot::config:
-  protocols: imap sieve lmtp
-  hostname: &quot;%{::fqdn}&quot;  
-profile::dovecot::configs:
-  &#39;10-auth&#39;:
-    disable_plaintext_auth: yes
-    passdb:
-      driver: passwd-file
-      args: scheme=CRYPT username_format=%u /etc/dovecot/virtual_accounts_passwd
-  &#39;10-master&#39;:
-    default_process_limit: 200
-    default_client_limit: 2000
-    service lmtp:
-      unix_listener /var/spool/postfix/private/dovecot-lmtp:
-        user: postfix
-        group: postfix
-        mode: &#39;0600&#39;
-  &#39;10-ssl&#39;:
-    ssl: yes
-    ssl_cert: &#39;&lt;/etc/dovecot/ssl/dovecot.crt&#39;
-    ssl_key: &#39;&lt;/etc/dovecot/ssl/dovecot.key&#39;</code></pre>
+<p>For advanced use-cases you can also use the provided
+<code>dovecot::create_config_resources</code> and
+<code>dovecot::create_config_file_resources</code> functions, that are used
+to handle the $config and $configs parameters.</p>
 
 <h2 id="label-Reference">Reference</h2>
 
@@ -190,7 +192,7 @@ Github.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Fri May 26 11:03:50 2017 by
+  Generated on Fri May 26 11:53:14 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.3.4).
 </div>

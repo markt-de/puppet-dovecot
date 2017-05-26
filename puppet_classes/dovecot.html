@@ -95,13 +95,13 @@ parameters are passed directly to dovecot via config files.
       
       <pre class="example code"><code>
 $config = hiera_hash(&quot;${title}::config&quot;, {})
-$extra_configs = hiera_hash(&quot;${title}::extra_configs&quot;, {})
+$configs = hiera_hash(&quot;${title}::configs&quot;, {})
 $plugins = hiera_array(&quot;${title}::plugins&quot;, undef)
 class { &#39;dovecot&#39;:
   plugins =&gt; $plugins,
-}
-dovecot::create_config_resources($config)
-dovecot::create_config_file_resources($extra_configs)</code></pre>
+  config =&gt; $config,
+  configs =&gt; $configs,
+}</code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -139,6 +139,42 @@ dovecot::create_config_file_resources($extra_configs)</code></pre>
         &mdash;
         <div class='inline'>
 <p>the list of plugins to install</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a hash of config file entries, with nested hashes parsed as sections</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>configs</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a hash of conf.d file names to $config-style hashes</p>
 </div>
       
     </li>
@@ -224,8 +260,6 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
         <pre class="lines">
 
 
-25
-26
 27
 28
 29
@@ -261,14 +295,23 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
 59
 60
 61
-62</pre>
+62
+63
+64
+65
+66
+67
+68
+69</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 25</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 27</span>
 
 class dovecot(
     String $config_path = &#39;/etc/dovecot&#39;,
     Array[String[1]] $plugins = [],
+    Hash $config = {},
+    Hash $configs = {},
     Boolean $packages_install = true,
     Boolean $service_manage = true,
     Boolean $purge_unmanaged = true,
@@ -303,6 +346,9 @@ class dovecot(
       purge =&gt; &#39;true&#39;,
     }
   }
+
+  dovecot::create_config_resources($config)
+  dovecot::create_config_file_resources($configs)
 }</pre>
       </td>
     </tr>
@@ -311,7 +357,7 @@ class dovecot(
 </div>
 
       <div id="footer">
-  Generated on Fri May 26 11:03:50 2017 by
+  Generated on Fri May 26 11:53:14 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.3.4).
 </div>
