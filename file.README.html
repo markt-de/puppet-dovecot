@@ -109,7 +109,7 @@ welcome.</p>
 
 <p>While on a puppet-managed host, splitting the config into multiple conf.d
 files provides not much advantage, this module supports managing both the
-dovecot.conf file and several conf.d files, by specifying the file param.</p>
+dovecot.conf file and several conf.d files.</p>
 
 <p>The dovecot class takes two parameters, $config for dovecot.conf entries
 and $configs for conf.d file entries:</p>
@@ -161,6 +161,11 @@ dovecot::configs:
     ssl_cert: &#39;&lt;/etc/dovecot/ssl/dovecot.crt&#39;
     ssl_key: &#39;&lt;/etc/dovecot/ssl/dovecot.key&#39;</code></pre>
 
+<p>For advanced use-cases you can also use the provided
+<code>dovecot::create_config_resources</code> and
+<code>dovecot::create_config_file_resources</code> functions, that are used
+to handle the $config and $configs parameters.</p>
+
 <p>If you want to use the dovecot:config resource directly, the easiest way is
 to put both the file (optional) and the hierachical config key into the
 resource title:</p>
@@ -175,10 +180,14 @@ resource title:</p>
   &#39;10-auth:passdb.args&#39;: value =&gt; &#39;username_format=%u /etc/dovecot/virtual_accounts_passwd&#39;
 }</code></pre>
 
-<p>For advanced use-cases you can also use the provided
-<code>dovecot::create_config_resources</code> and
-<code>dovecot::create_config_file_resources</code> functions, that are used
-to handle the $config and $configs parameters.</p>
+<p>But you can also specify them separately:</p>
+
+<pre class="code ruby"><code class="ruby">dovecot::config { &#39;dovecot passdb driver&#39;:
+  file     =&gt; &#39;10-auth&#39;,
+  sections =&gt; [&#39;passdb&#39;],
+  key      =&gt; &#39;driver&#39;,
+  value    =&gt; &#39;passwd-file&#39;,
+}</code></pre>
 
 <h2 id="label-Reference">Reference</h2>
 
@@ -207,7 +216,7 @@ Github.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Fri May 26 15:22:00 2017 by
+  Generated on Fri May 26 15:26:43 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.3.4).
 </div>
