@@ -14,13 +14,13 @@
 # @example Using a profile to load merged values from hiera:
 #    
 #    $config = hiera_hash("${title}::config", {})
-#    $extra_configs = hiera_hash("${title}::extra_configs", {})
+#    $configs = hiera_hash("${title}::configs", {})
 #    $plugins = hiera_array("${title}::plugins", undef)
 #    class { 'dovecot':
 #      plugins => $plugins,
+#      config => $config,
+#      configs => $configs,
 #    }
-#    dovecot::create_config_resources($config)
-#    dovecot::create_config_file_resources($extra_configs)
 #
 # @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
