@@ -89,16 +89,19 @@ parameters are passed directly to dovecot via config files.
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><code># Using a profile to load merged values from hiera:
-
-$config = hiera_hash(&quot;${title}::config&quot;, undef)
-$extra_configs = hiera_hash(&quot;${title}::extra_configs&quot;, undef)
+        <p class="example_title"><div class='inline'>
+<p>Using a profile to load merged values from hiera:</p>
+</div></p>
+      
+      <pre class="example code"><code>
+$config = hiera_hash(&quot;${title}::config&quot;, {})
+$extra_configs = hiera_hash(&quot;${title}::extra_configs&quot;, {})
 $plugins = hiera_array(&quot;${title}::plugins&quot;, undef)
 class { &#39;dovecot&#39;:
-  config =&gt; $config,
-  extra_configs =&gt; $extra_configs,
   plugins =&gt; $plugins,
-}</code></pre>
+}
+dovecot::create_config_resources($config)
+dovecot::create_config_file_resources($extra_configs)</code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -142,11 +145,13 @@ class { &#39;dovecot&#39;:
   
     <li>
       
-        <span class='name'>packages_insatll</span>
+        <span class='name'>packages_install</span>
       
       
-        <span class='type'></span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
       
       
         &mdash;
@@ -192,19 +197,6 @@ class { &#39;dovecot&#39;:
       
     </li>
   
-    <li>
-      
-        <span class='name'>packages_install</span>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>true</tt>)</em>
-      
-      
-    </li>
-  
 </ul>
 
 <p class="tag_title">Author:</p>
@@ -232,6 +224,7 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
         <pre class="lines">
 
 
+25
 26
 27
 28
@@ -268,11 +261,10 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
 59
 60
 61
-62
-63</pre>
+62</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 26</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 25</span>
 
 class dovecot(
     String $config_path = &#39;/etc/dovecot&#39;,
@@ -319,7 +311,7 @@ class dovecot(
 </div>
 
       <div id="footer">
-  Generated on Fri May 26 03:07:05 2017 by
+  Generated on Fri May 26 03:10:47 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.3.4).
 </div>
