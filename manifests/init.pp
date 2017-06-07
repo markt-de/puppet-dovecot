@@ -61,6 +61,10 @@ class dovecot(
       ensure => 'directory',
       recurse => 'true',
       purge => 'true',
+    } ->
+    # always keep conf.d
+    file { "${config_path}/conf.d":
+      ensure => 'directory',
     }
   }
 
