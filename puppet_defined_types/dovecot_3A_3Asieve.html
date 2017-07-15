@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  Defined Type: dovecot::file
+  Defined Type: dovecot::sieve
   
     &mdash; Documentation by YARD 0.9.9
   
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  pathId = "puppet_defined_types::dovecot::file";
+  pathId = "puppet_defined_types::dovecot::sieve";
   relpath = '../';
 </script>
 
@@ -39,7 +39,7 @@
     <a href="../_index.html">Index (d)</a> &raquo;
     <span class='title'><span class='object_link'>Defined Types</span></span>
      &raquo; 
-    <span class="title">dovecot::file</span>
+    <span class="title">dovecot::sieve</span>
   
 </div>
 
@@ -59,24 +59,25 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><h1>Defined Type: dovecot::file</h1>
+      <div id="content"><h1>Defined Type: dovecot::sieve</h1>
 <div class="box_info">
   <dl>
     <dt>Defined in:</dt>
     <dd>
-      manifests/file.pp
+      manifests/sieve.pp
     </dd>
   </dl>
 </div>
 
   <h2>Summary</h2>
-  simple file resource that notifies the dovecot service.
+  simple sieve script resource that gets compiled by sievec and
+notifies the dovecot service.
 
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
     
-<h1 id="label-dovecot-3A-3Afile">dovecot::file</h1>
+<h1 id="label-dovecot-3A-3Asievec">dovecot::sievec</h1>
 
   </div>
 </div>
@@ -91,6 +92,8 @@
       
         <span class='type'>(<tt>Any</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>$name</tt>)</em>
       
       
     </li>
@@ -142,6 +145,21 @@
         <span class='type'>(<tt>Any</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>source</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
       
     </li>
   
@@ -172,7 +190,6 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
         <pre class="lines">
 
 
-8
 9
 10
 11
@@ -190,29 +207,44 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
 23
 24
 25
-26</pre>
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/file.pp', line 8</span>
+        <pre class="code"><span class="info file"># File 'manifests/sieve.pp', line 9</span>
 
-define dovecot::file(
-  $path,
+define dovecot::sieve(
+  $path  = $name,
   $owner = &#39;root&#39;,
   $group = &#39;root&#39;,
-  $mode = &#39;0644&#39;,
-  $content,
+  $mode  = &#39;0644&#39;,
+  $content = undef,
+  $source  = undef,
 ) {
 
-  file { &quot;dovecot file ${title}&quot;:
+  file { &quot;dovecot sieve ${title}&quot;:
     path    =&gt; $path,
     owner   =&gt; $owner,
     group   =&gt; $group,
     mode    =&gt; $mode,
     content =&gt; $content,
-    require =&gt; Package[&#39;dovecot&#39;],
-    notify  =&gt; Service[&#39;dovecot&#39;],
+    source  =&gt; $source,
+    require =&gt; Package[&#39;dovecot-sieve&#39;],
+  } 
+  ~&gt; exec { &quot;compile sieve ${title}&quot;:
+    command     =&gt; &quot;/usr/bin/sievec ${path}&quot;,
+    user        =&gt; $owner,
+    group       =&gt; $group,
+    refreshonly =&gt; true,
+    notify      =&gt; Service[&#39;dovecot&#39;],
   }
-    
 }</pre>
       </td>
     </tr>
