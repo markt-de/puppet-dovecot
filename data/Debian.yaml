@@ -1,0 +1,29 @@
+---
+dovecot::package_name: ['dovecot-core']
+dovecot::plugin:
+  antispam:
+    package_name: ['dovecot-antispam']
+  gssapi:
+    package_name: ['dovecot-gssapi']
+  imap:
+    package_name: ['dovecot-imapd']
+  ldap:
+    package_name: ['dovecot-ldap']
+  lmtp:
+    package_name: ['dovecot-lmtpd']
+  lucene:
+    package_name: ['dovecot-lucene']
+  managesieve:
+    package_name: ['dovecot-managesieved']
+  mysql:
+    package_name: ['dovecot-mysql']
+  pgsql:
+    package_name: ['dovecot-pgsql']
+  pop3:
+    package_name: ['dovecot-pop3d']
+  sieve:
+    package_name: ['dovecot-sieve']
+  solr:
+    package_name: ['dovecot-solr']
+  sqlite:
+    package_name: ['dovecot-sqlite']

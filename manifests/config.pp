@@ -70,18 +70,18 @@
 # @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
 define dovecot::config (
-  Optional[String] $file            = undef,
-  Optional[Array[String]] $sections = undef,
-  Optional[String] $key             = undef,
   $value,
-  Optional[String] $comment         = undef,
+  Optional[String] $comment = undef,
   Enum['present', 'absent'] $ensure = 'present',
+  Optional[String] $file = undef,
+  Optional[String] $key = undef,
+  Optional[Array[String]] $sections = undef,
 ) {
   if (!$key and !$sections and !$file and $name =~ /\A(?:([^:]+):)?(.+\.)?([^.]+)\z/) {
     $configfile = $1
     $configsections = $2 ? {
-        Undef => [],
-        default => split($2, '\.'),
+      Undef => [],
+      default => split($2, '\.'),
     }
     $configkey = $3
   } else {
@@ -89,7 +89,7 @@ define dovecot::config (
     $configsections = pick($sections, [])
     $configkey = pick($key, $name)
   }
- 
+
   $full_file = $configfile ? {
     Undef   => "${dovecot::config_path}/dovecot.conf",
     default => "${dovecot::config_path}/conf.d/${configfile}.conf"
@@ -101,13 +101,13 @@ define dovecot::config (
     default => $_full_key,
   }
   dovecot::configentry { "dovecot config ${full_file} ${full_key}":
+    ensure   => $ensure,
     file     => $full_file,
     sections => $configsections,
     key      => $configkey,
     value    => $value,
     comment  => $comment,
-    ensure   => $ensure,
-    notify   => Service['dovecot'],
+    notify   => Class['dovecot::service'],
   }
 }
 

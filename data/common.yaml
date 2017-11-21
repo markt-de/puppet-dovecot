@@ -1,0 +1,14 @@
+---
+dovecot::config_path: '/etc/dovecot'
+dovecot::config: {}
+dovecot::configs: {}
+dovecot::package_ensure: 'present'
+dovecot::package_manage: true
+dovecot::plugin: {}
+dovecot::plugins: {}
+dovecot::purge_unmanaged: true
+dovecot::service_enable: true
+dovecot::service_ensure: running
+dovecot::service_manage: true
+dovecot::service_name: dovecot
+dovecot::sieve::sievec: '/usr/bin/sievec'

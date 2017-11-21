@@ -7,12 +7,13 @@
 # @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
 define dovecot::sieve(
-  $path  = $name,
-  $owner = 'root',
-  $group = 'root',
-  $mode  = '0644',
   $content = undef,
-  $source  = undef,
+  $group = 'root',
+  $mode = '0644',
+  $owner = 'root',
+  $path = $name,
+  Stdlib::Absolutepath $sievec = lookup('dovecot::sieve::sievec'),
+  $source = undef,
 ) {
 
   file { "dovecot sieve ${title}":
@@ -22,13 +23,13 @@ define dovecot::sieve(
     mode    => $mode,
     content => $content,
     source  => $source,
-    require => Package['dovecot-sieve'],
-  } 
+    require => Class['dovecot::install'],
+  }
   ~> exec { "compile sieve ${title}":
-    command     => "/usr/bin/sievec ${path}",
+    command     => "${sievec} ${path}",
     user        => $owner,
     group       => $group,
     refreshonly => true,
-    notify      => Service['dovecot'],
+    notify      => Class['dovecot::service'],
   }
 }

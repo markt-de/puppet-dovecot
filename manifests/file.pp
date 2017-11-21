@@ -6,11 +6,11 @@
 # @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
 define dovecot::file(
+  $content,
   $path,
-  $owner = 'root',
   $group = 'root',
   $mode = '0644',
-  $content,
+  $owner = 'root',
 ) {
 
   file { "dovecot file ${title}":
@@ -19,8 +19,8 @@ define dovecot::file(
     group   => $group,
     mode    => $mode,
     content => $content,
-    require => Package['dovecot'],
-    notify  => Service['dovecot'],
+    require => Class['dovecot::install'],
+    notify  => Class['dovecot::service'],
   }
-    
+
 }

@@ -15,8 +15,8 @@
 # @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
 define dovecot::configfile (
-  Stdlib::Absolutepath $file        = $title,
-  Optional[String] $comment         = undef,
+  Stdlib::Absolutepath $file = $title,
+  Optional[String] $comment = undef,
   Enum['present', 'absent'] $ensure = 'present',
 ) {
   concat { $file:
@@ -25,13 +25,13 @@ define dovecot::configfile (
     mode   => '0644',
     warn   => !$comment,
     order  => 'alpha',
-    notify => Service['dovecot'],
+    notify => Class['dovecot::service'],
   }
 
   if ($comment) {
     concat::fragment { "dovecot ${file} config 01 file warning comment":
-      target => $file,
-      content => join(suffix(prefix(split($comment, '\n'), "# "), "\n")),
+      target  => $file,
+      content => join(suffix(prefix(split($comment, '\n'), '# '), '\n')),
     }
   }
 }
