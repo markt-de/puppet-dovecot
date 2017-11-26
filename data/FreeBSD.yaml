@@ -1,0 +1,9 @@
+---
+dovecot::config_path: '/usr/local/etc/dovecot'
+dovecot::package_name: ['mail/dovecot']
+dovecot::plugin: 
+  managesieve:
+    package_name: ['mail/dovecot-pigeonhole']
+  sieve:
+    package_name: ['mail/dovecot-pigeonhole']
+dovecot::sieve::sievec: '/usr/local/bin/sievec'

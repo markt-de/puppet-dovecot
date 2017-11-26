@@ -1,0 +1,11 @@
+---
+dovecot::package_name: ['dovecot']
+dovecot::plugin:
+  managesieve:
+    package_name: ['dovecot-pigeonhole']
+  mysql:
+    package_name: ['dovecot-mysql']
+  pgsql:
+    package_name: ['dovecot-pgsql']
+  sieve:
+    package_name: ['dovecot-pigeonhole']

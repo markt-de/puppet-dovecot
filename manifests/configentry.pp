@@ -19,10 +19,10 @@
 define dovecot::configentry (
   Stdlib::Absolutepath $file,
   String $key,
-  Array[String] $sections           = [],
   $value,
-  Optional[String] $comment         = undef,
+  Optional[String] $comment = undef,
   Enum['present', 'absent'] $ensure = 'present',
+  Array[String] $sections = [],
 ) {
   ensure_resource('dovecot::configfile', $file)
 
@@ -52,7 +52,7 @@ define dovecot::configentry (
 
   if ($comment) {
     concat::fragment { "dovecot ${file} config ${section} 02 ${key} 01 comment":
-      target => $file,
+      target  => $file,
       content => join(suffix(prefix(split($comment, '\n'), "${indent}# "), "\n")),
     }
   }
@@ -60,7 +60,7 @@ define dovecot::configentry (
   case $key {
     '!include', '!include_try': {
       concat::fragment { "dovecot ${file} config ${section} 04 ${key} ${value}":
-        target => $file,
+        target  => $file,
         content => "${key} ${value}\n",
       }
     }
@@ -70,7 +70,7 @@ define dovecot::configentry (
     default: {
       $printed_value = dovecot::print_config_value($value)
       concat::fragment { "dovecot ${file} config ${section} 02 ${key} 02":
-        target => $file,
+        target  => $file,
         content => "${indent}${key} = ${printed_value}\n",
       }
     }
