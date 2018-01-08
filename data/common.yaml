@@ -5,7 +5,7 @@ dovecot::configs: {}
 dovecot::package_ensure: 'present'
 dovecot::package_manage: true
 dovecot::plugin: {}
-dovecot::plugins: {}
+dovecot::plugins: []
 dovecot::purge_unmanaged: true
 dovecot::service_enable: true
 dovecot::service_ensure: running
