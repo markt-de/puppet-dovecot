@@ -1,5 +1,6 @@
 ---
 dovecot::package_name: ['dovecot']
+dovecot::poolmon_config_file: '/etc/sysconfig/poolmon'
 dovecot::plugin:
   managesieve:
     package_name: ['dovecot-pigeonhole']

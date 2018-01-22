@@ -6,4 +6,9 @@ dovecot::plugin:
     package_name: ['mail/dovecot-pigeonhole']
   sieve:
     package_name: ['mail/dovecot-pigeonhole']
+dovecot::poolmon_basepath: '/usr/local'
+dovecot::poolmon_config_file: '/etc/rc.conf.d/poolmon'
+dovecot::poolmon_service_file: '/usr/local/etc/rc.d/poolmon'
+dovecot::poolmon_service_mode: '0755'
+dovecot::poolmon_service_provider: 'rc'
 dovecot::sieve::sievec: '/usr/local/bin/sievec'

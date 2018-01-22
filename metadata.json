@@ -9,7 +9,8 @@
   "issues_url": "https://github.com/oxc/puppet-dovecot/issues",
   "dependencies": [
     {"name":"puppetlabs/stdlib","version_requirement":">= 3.0.0 < 5.0.0"},
-    {"name":"puppetlabs/concat","version_requirement":">= 3.0.0 < 5.0.0"}
+    {"name":"puppetlabs/concat","version_requirement":">= 3.0.0 < 5.0.0"},
+    {"name":"puppet/archive","version_requirement":">= 2.0.0 < 3.0.0"}
   ],
   "operatingsystem_support": [
     {

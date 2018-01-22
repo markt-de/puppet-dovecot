@@ -8,7 +8,7 @@
 define dovecot::file(
   $content,
   $path,
-  $group = 'root',
+  $group = 0,
   $mode = '0644',
   $owner = 'root',
 ) {

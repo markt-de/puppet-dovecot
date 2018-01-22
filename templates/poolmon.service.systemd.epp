@@ -1,0 +1,17 @@
+[Unit]
+Description=Poolmon monitors a pool of Dovecot director mailservers
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=simple
+EnvironmentFile=-<%= $dovecot::poolmon_config_file %>
+WorkingDirectory=/
+PIDFile=<%= $dovecot::poolmon_config['lockfile'] %>
+ExecStart=<%= $dovecot::poolmon_exec %> -f ${OPTIONS}
+Restart=on-failure
+LimitNOFILE=10000
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
+

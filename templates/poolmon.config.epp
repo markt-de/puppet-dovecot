@@ -1,0 +1,31 @@
+<%- | Optional[String]  $logfile = undef,
+      Optional[String]  $lockfile = undef,
+      Optional[String]  $socket = undef,
+      Optional[Boolean] $log_debug = undef,
+      Optional[Integer] $scan_interval = undef,
+      Optional[Integer] $check_timeout = undef,
+      Optional[String]  $lmtp_from = undef,
+      Optional[String]  $lmtp_to = undef,
+      Optional[Array]   $check_port = undef,
+      Optional[Array]   $check_ssl = undef,
+      Optional[String]  $credfile = undef,
+      Optional[String]  $provider = undef | -%>
+# This file is managed by Puppet. DO NOT EDIT.
+
+<% if ($check_port) { -%>
+<%   $_portopts = $check_port.map |$port| { "--port=${port} " } -%>
+<% } -%>
+<% if ($check_ssl) { -%>
+<%   $_sslopts = $check_ssl.map |$sslport| { "--ssl=${sslport} " } -%>
+<% } -%>
+
+<% if ($provider == 'systemd') { -%>
+<%   $prefix='OPTIONS=' -%>
+<% } elsif ($provider == 'rc') { -%>
+poolmon_enable="YES"
+poolmon_pidfile="<%= $lockfile %>"
+<%   $prefix='poolmon_flags="' -%>
+<%   $suffix='"' -%>
+<% } -%>
+
+<%= $prefix %><% if ($logfile) { %>--logfile="<%= $logfile %>" <% } -%><% if ($lockfile) { %>--lockfile="<%= $lockfile %>" <% } -%><% if ($socket) { %>--socket="<%= $socket %>" <% } -%><% if ($log_debug) { %>--debug <% } -%><% if ($scan_interval) { %>--interval="<%= $scan_interval %>" <% } -%><% if ($check_timeout) { %>--timeout="<%= $check_timeout %>" <% } -%><% if ($lmtp_from) { %>--lmtp-from="<%= $lmtp_from %>" <% } -%><% if ($lmtp_to) { %>--lmtp-to="<%= $lmtp_to %>" <% } -%><% if ($poolmon_credfile) { %>--credfile="<%= $poolmon_credfile %>" <% } -%><%= $_portopts.join('') %> <%= $_sslopts.join('') %><%= $suffix %>

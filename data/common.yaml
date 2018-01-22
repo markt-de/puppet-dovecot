@@ -1,4 +1,12 @@
 ---
+lookup_options:
+  # Usually you want to REPLACE (not merge) package lists.
+  '^dovecot::(.*::)?package_name$':
+    merge:
+      strategy: first
+  '^dovecot::.*':
+    merge:
+      strategy: deep
 dovecot::config_path: '/etc/dovecot'
 dovecot::config: {}
 dovecot::configs: {}
@@ -6,6 +14,29 @@ dovecot::package_ensure: 'present'
 dovecot::package_manage: true
 dovecot::plugin: {}
 dovecot::plugins: []
+dovecot::poolmon_archive_params:
+  checksum_type: 'none'
+  cleanup: true
+  extract: true
+dovecot::poolmon_basepath: '/opt'
+dovecot::poolmon_checksum_type: 'none'
+dovecot::poolmon_config:
+  scan_interval: 30
+  check_timeout: 5
+  log_debug: false
+  logfile: 'syslog'
+  check_port:
+    - 110
+    - 143
+  check_ssl: []
+  socket: '/var/run/dovecot/director-admin'
+  lockfile: '/var/run/poolmon.pid'
+dovecot::poolmon_exec: '/usr/local/sbin/poolmon'
+dovecot::poolmon_manage: false
+dovecot::poolmon_service_file: '/etc/systemd/system/poolmon.service'
+dovecot::poolmon_service_mode: '0644'
+dovecot::poolmon_service_provider: 'systemd'
+dovecot::poolmon_version: '0.6'
 dovecot::purge_unmanaged: true
 dovecot::service_enable: true
 dovecot::service_ensure: running

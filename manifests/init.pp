@@ -10,6 +10,7 @@
 # @param package_manage whether to install the dovecot core and plugin packages
 # @param plugin contains a package_name parameter for each plugin (if available)
 # @param plugins the list of plugins to install
+# @param poolmon_manage [Boolean] Whether to manage the poolmon service. Default value: false.
 # @param purge_unmanaged whether to purge all unmanaged files in the dovecot directory
 # @param service_enable [Boolean] Whether to enable the dovecot service at boot. Default value: true.
 # @param service_ensure [Enum['running', 'stopped']] Whether the dovecot service should be running. Default value: 'running'.
@@ -31,12 +32,21 @@
 #
 class dovecot(
   Hash $config,
-  #Hash $config = {},
   String $config_path,
   Hash $configs,
   String $package_ensure,
   Boolean $package_manage,
   Array[String] $package_name,
+  Hash $poolmon_archive_params,
+  String $poolmon_basepath,
+  Hash $poolmon_config,
+  String $poolmon_config_file,
+  String $poolmon_exec,
+  Boolean $poolmon_manage,
+  String $poolmon_service_file,
+  String $poolmon_service_mode,
+  Enum['rc', 'systemd'] $poolmon_service_provider,
+  String $poolmon_version,
   Boolean $purge_unmanaged,
   Hash $plugin,
   Array[String[1]] $plugins,
@@ -48,8 +58,10 @@ class dovecot(
   contain dovecot::install
   contain dovecot::configuration
   contain dovecot::service
+  contain dovecot::poolmon
 
   Class['::dovecot::install']
   -> Class['::dovecot::configuration']
   ~> Class['::dovecot::service']
+  ~> Class['::dovecot::poolmon']
 }
