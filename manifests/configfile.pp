@@ -21,7 +21,7 @@ define dovecot::configfile (
 ) {
   concat { $file:
     owner  => 'root',
-    group  => 'root',
+    group  => 0,
     mode   => '0644',
     warn   => !$comment,
     order  => 'alpha',

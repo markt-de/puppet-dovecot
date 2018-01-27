@@ -8,7 +8,7 @@
 #
 define dovecot::sieve(
   $content = undef,
-  $group = 'root',
+  $group = 0,
   $mode = '0644',
   $owner = 'root',
   $path = $name,

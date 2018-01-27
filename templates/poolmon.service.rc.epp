@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# PROVIDE: poolmon
+# REQUIRE: DAEMON LOGIN dovecot
+# KEYWORD: shutdown
+
+# poolmon_enable (bool):        Set it to YES to enable poolmon
+#                               Default: NO
+# poolmon_flags (str):          Extra flags to pass to poolmon
+#                               Default: empty
+# poolmon_pidfile (file):       Set full path to pid file.
+
+. /etc/rc.subr
+
+stop_precmd()
+{
+	test -f $pidfile && kill -9 $(cat $pidfile)
+}
+
+name="poolmon"
+rcvar="poolmon_enable"
+
+load_rc_config ${name}
+
+: ${poolmon_enable:="NO"}
+: ${poolmon_pidfile:="/var/run/poolmon.pid"}
+
+command="<%= $dovecot::poolmon_exec %>"
+command_interpreter="/usr/bin/perl"
+pidfile=${poolmon_pidfile}
+stop_precmd=stop_precmd
+sig_stop="TERM"
+
+run_rc_command "$1"

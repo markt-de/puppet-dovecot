@@ -7,11 +7,13 @@ class dovecot::configuration inherits dovecot {
       path    => $dovecot::config_path,
       recurse => true,
       purge   => true,
-    } ->
-    # always keep conf.d
-    file { "${dovecot::config_path}/conf.d":
-      ensure => 'directory',
+      before  => File["${dovecot::config_path}/conf.d"]
     }
+  }
+
+  # always keep/create conf.d
+  file { "${dovecot::config_path}/conf.d":
+    ensure => 'directory',
   }
 
   dovecot::create_config_resources($dovecot::config)

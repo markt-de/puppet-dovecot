@@ -8,15 +8,11 @@ class dovecot::install inherits dovecot {
 
     # get a list of package names for all requested plugins
     $_list = $dovecot::plugins.map |$_plugin| {
-      if ($dovecot::plugin[$_plugin]) {
-        if ($dovecot::plugin[$_plugin]['package_name']) {
-          $dovecot::plugin[$_plugin]['package_name']
-        }
-      }
+      $dovecot::plugin.dig($_plugin, 'package_name')
     }
 
     # remove duplicates from the list
-    $packages = unique($_list)
+    $packages = unique($_list).filter|$value| { $value != undef }
 
     # install plugin packages
     $packages.each |$_package| {

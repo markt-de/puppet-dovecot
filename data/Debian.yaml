@@ -1,5 +1,6 @@
 ---
 dovecot::package_name: ['dovecot-core']
+dovecot::poolmon_config_file: '/etc/default/poolmon'
 dovecot::plugin:
   antispam:
     package_name: ['dovecot-antispam']
