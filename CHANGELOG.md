@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.0] - 2018-01-28
+First stable release, now requires Puppet 4.9
+
 ### Added
 - Support support for other operating systems (RedHat, Debian and FreeBSD)
 - New parameters for service configuration (`$service_enable`, `$service_ensure`,
@@ -25,4 +28,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## 0.1.0 - 2017-07-31
 Initial release
 
-[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/oxc/puppet-dovecot/v0.1.0...v1.0.0
