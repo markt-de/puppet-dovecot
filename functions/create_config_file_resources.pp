@@ -19,7 +19,11 @@
 #
 # @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
-function dovecot::create_config_file_resources(Hash[String, Hash] $configfile_hash, Boolean $include_in_main_config = true, Hash $params = {}) {
+function dovecot::create_config_file_resources(
+  Hash[String, Hash] $configfile_hash,
+  Boolean $include_in_main_config = true,
+  Hash $params = {}
+) {
   $configfile_hash.each |$key, $value| {
     $file_params = {
       file => $key

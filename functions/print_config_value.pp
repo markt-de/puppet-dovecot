@@ -12,7 +12,7 @@
 # @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
 function dovecot::print_config_value($value) {
-  $quotedValue = $value ? {
+  $value ? {
     Undef   => '',
     ''      => '""',
     true    => 'yes',

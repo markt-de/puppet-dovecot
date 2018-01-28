@@ -34,7 +34,7 @@ function dovecot::create_config_resources(Hash[String, NotUndef] $config_hash, H
           sections => $sections,
           key      => $key,
           value    => $value,
-          * => $params
+          *        => $params
         }
       }
     }

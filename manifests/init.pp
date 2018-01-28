@@ -6,7 +6,8 @@
 # @param config a hash of config file entries, with nested hashes parsed as sections
 # @param config_path the path to the dovecot config dir
 # @param configs a hash of conf.d file names to $config-style hashes
-# @param package_ensure [String] Whether to install the dovecot package, and what version to install. Values: 'present', 'latest', or a specific version number. Default value: 'present'.
+# @param package_ensure [String] Whether to install the dovecot package, and what version to install.
+#   Values: 'present', 'latest', or a specific version number. Default value: 'present'.
 # @param package_manage whether to install the dovecot core and plugin packages
 # @param plugin contains a package_name parameter for each plugin (if available)
 # @param plugins the list of plugins to install
