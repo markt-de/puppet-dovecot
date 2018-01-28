@@ -184,7 +184,7 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
         <pre class="code"><span class="info file"># File 'functions/print_config_value.pp', line 14</span>
 
 function dovecot::print_config_value($value) {
-  $quotedValue = $value ? {
+  $value ? {
     Undef   =&gt; &#39;&#39;,
     &#39;&#39;      =&gt; &#39;&quot;&quot;&#39;,
     true    =&gt; &#39;yes&#39;,

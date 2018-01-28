@@ -219,12 +219,20 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
 30
 31
 32
-33</pre>
+33
+34
+35
+36
+37</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'functions/create_config_file_resources.pp', line 22</span>
 
-function dovecot::create_config_file_resources(Hash[String, Hash] $configfile_hash, Boolean $include_in_main_config = true, Hash $params = {}) {
+function dovecot::create_config_file_resources(
+  Hash[String, Hash] $configfile_hash,
+  Boolean $include_in_main_config = true,
+  Hash $params = {}
+) {
   $configfile_hash.each |$key, $value| {
     $file_params = {
       file =&gt; $key

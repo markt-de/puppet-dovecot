@@ -298,10 +298,10 @@ define dovecot::configentry (
   $depth = length($sections)
   if ($depth &gt; 0) {
     Integer[1,$depth].each |$i| {
-      $section = join($rsections[0,$i+1], &#39; 03 &#39;)
-      $indent = sprintf(&quot;%${($i-1)*2}s&quot;, &#39;&#39;)
+      $section = join($rsections[0, $i + 1], &#39; 03 &#39;)
+      $indent = sprintf(&quot;%${($i - 1) * 2}s&quot;, &#39;&#39;)
 
-      $section_name = $sections[$i-1]
+      $section_name = $sections[$i - 1]
 
       ensure_resource(&#39;concat::fragment&#39;, &quot;dovecot ${file} config ${section} 01 section start&quot;, {
         target =&gt; $file,
@@ -315,7 +315,7 @@ define dovecot::configentry (
   }
 
   # now for the value itself
-  $indent = sprintf(&quot;%${$depth*2}s&quot;, &#39;&#39;)
+  $indent = sprintf(&quot;%${$depth * 2}s&quot;, &#39;&#39;)
   $section = join($rsections, &#39; 03 &#39;)
 
   if ($comment) {
