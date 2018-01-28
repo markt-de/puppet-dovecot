@@ -6,7 +6,7 @@
 <title>
   Puppet Class: dovecot
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
@@ -64,6 +64,21 @@
   
   
   <dl>
+    <dt>Inherited by:</dt>
+    <dd>
+      
+      <span class='object_link'><a href="dovecot_3A_3Ainstall.html" title="puppet_classes::dovecot::install (puppet_class)">dovecot::install</a></span><br/>
+      
+      <span class='object_link'><a href="dovecot_3A_3Apoolmon.html" title="puppet_classes::dovecot::poolmon (puppet_class)">dovecot::poolmon</a></span><br/>
+      
+      <span class='object_link'><a href="dovecot_3A_3Aservice.html" title="puppet_classes::dovecot::service (puppet_class)">dovecot::service</a></span><br/>
+      
+      <span class='object_link'><a href="dovecot_3A_3Aconfiguration.html" title="puppet_classes::dovecot::configuration (puppet_class)">dovecot::configuration</a></span><br/>
+      
+    </dd>
+  </dl>
+  
+  <dl>
     <dt>Defined in:</dt>
     <dd>
       manifests/init.pp
@@ -109,54 +124,32 @@ class { &#39;dovecot&#39;:
   
     <li>
       
-        <span class='name'>config_path</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>&#39;/etc/dovecot&#39;</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the path to the dovecot config dir</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>plugins</span>
-      
-      
-        <span class='type'>(<tt>Array[String[1]]</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>[]</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the list of plugins to install</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
         <span class='name'>config</span>
       
       
         <span class='type'>(<tt>Hash</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>{}</tt>)</em>
-      
       
         &mdash;
         <div class='inline'>
 <p>a hash of config file entries, with nested hashes parsed as sections</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the path to the dovecot config dir</p>
 </div>
       
     </li>
@@ -169,8 +162,6 @@ class { &#39;dovecot&#39;:
         <span class='type'>(<tt>Hash</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>{}</tt>)</em>
-      
       
         &mdash;
         <div class='inline'>
@@ -181,13 +172,29 @@ class { &#39;dovecot&#39;:
   
     <li>
       
-        <span class='name'>packages_install</span>
+        <span class='name'>package_ensure</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether to install the dovecot package, and what version to install.
+Values: &#39;present&#39;, &#39;latest&#39;, or a specific version number.
+Default value: &#39;present&#39;.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_manage</span>
       
       
         <span class='type'>(<tt>Boolean</tt>)</span>
       
-      
-        <em class="default">(defaults to: <tt>true</tt>)</em>
       
       
         &mdash;
@@ -199,18 +206,48 @@ class { &#39;dovecot&#39;:
   
     <li>
       
-        <span class='name'>service_manage</span>
+        <span class='name'>plugin</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>contains a package_name parameter for each plugin (if available)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>plugins</span>
+      
+      
+        <span class='type'>(<tt>Array[String[1]]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the list of plugins to install</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>poolmon_manage</span>
       
       
         <span class='type'>(<tt>Boolean</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>true</tt>)</em>
-      
       
         &mdash;
         <div class='inline'>
-<p>whether to manage the dovecot service</p>
+<p>Whether to manage the poolmon service. Default value: false.</p>
 </div>
       
     </li>
@@ -223,13 +260,208 @@ class { &#39;dovecot&#39;:
         <span class='type'>(<tt>Boolean</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>true</tt>)</em>
-      
       
         &mdash;
         <div class='inline'>
 <p>whether to purge all unmanaged files in the dovecot directory</p>
 </div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_enable</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether to enable the dovecot service at boot. Default value: true.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_ensure</span>
+      
+      
+        <span class='type'>(<tt>Enum['running', 'stopped']</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether the dovecot service should be running. Default value:
+&#39;running&#39;.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_manage</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>whether to manage the dovecot service</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The dovecot service to manage. Default value: varies by operating system.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_name</span>
+      
+      
+        <span class='type'>(<tt>Array[String]</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>poolmon_archive_params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>poolmon_basepath</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>poolmon_config</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>poolmon_config_file</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>poolmon_exec</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>poolmon_service_enable</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>poolmon_service_ensure</span>
+      
+      
+        <span class='type'>(<tt>Enum['running', 'stopped']</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>poolmon_service_file</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>poolmon_service_mode</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>poolmon_service_provider</span>
+      
+      
+        <span class='type'>(<tt>Enum['rc', 'systemd']</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>poolmon_version</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
       
     </li>
   
@@ -260,12 +492,6 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
         <pre class="lines">
 
 
-27
-28
-29
-30
-31
-32
 33
 34
 35
@@ -302,61 +528,47 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
 66
 67
 68
-69
-70
-71
-72
-73</pre>
+69</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 27</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 33</span>
 
 class dovecot(
-    String $config_path = &#39;/etc/dovecot&#39;,
-    Array[String[1]] $plugins = [],
-    Hash $config = {},
-    Hash $configs = {},
-    Boolean $packages_install = true,
-    Boolean $service_manage = true,
-    Boolean $purge_unmanaged = true,
+  Hash $config,
+  String $config_path,
+  Hash $configs,
+  String $package_ensure,
+  Boolean $package_manage,
+  Array[String] $package_name,
+  Hash $poolmon_archive_params,
+  String $poolmon_basepath,
+  Hash $poolmon_config,
+  String $poolmon_config_file,
+  String $poolmon_exec,
+  Boolean $poolmon_manage,
+  Boolean $poolmon_service_enable,
+  Enum[&#39;running&#39;, &#39;stopped&#39;] $poolmon_service_ensure,
+  String $poolmon_service_file,
+  String $poolmon_service_mode,
+  Enum[&#39;rc&#39;, &#39;systemd&#39;] $poolmon_service_provider,
+  String $poolmon_version,
+  Boolean $purge_unmanaged,
+  Hash $plugin,
+  Array[String[1]] $plugins,
+  Boolean $service_enable,
+  Enum[&#39;running&#39;, &#39;stopped&#39;] $service_ensure,
+  Boolean $service_manage,
+  String $service_name,
 ) {
+  contain dovecot::install
+  contain dovecot::configuration
+  contain dovecot::service
+  contain dovecot::poolmon
 
-  if ($packages_install) {
-    package { &#39;dovecot&#39;:
-      ensure =&gt; &#39;present&#39;,
-      name   =&gt; dovecot::package_name(&#39;core&#39;),
-    }
-    $plugins.each |$plugin| {
-      package { &quot;dovecot-${plugin}&quot;:
-        ensure =&gt; &#39;present&#39;,
-        name   =&gt; dovecot::package_name($plugin),
-      }
-    }
-  }
-
-  if ($service_manage) {
-    service { &#39;dovecot&#39;:
-      ensure  =&gt; &#39;running&#39;,
-      enable  =&gt; true,
-      require =&gt; Package[&#39;dovecot&#39;],
-    }
-  }
-
-  if ($purge_unmanaged) {
-    file { &quot;purge unmanaged files&quot;:
-      path =&gt; $config_path,
-      ensure =&gt; &#39;directory&#39;,
-      recurse =&gt; &#39;true&#39;,
-      purge =&gt; &#39;true&#39;,
-    } -&gt;
-    # always keep conf.d
-    file { &quot;${config_path}/conf.d&quot;:
-      ensure =&gt; &#39;directory&#39;,
-    }
-  }
-
-  dovecot::create_config_resources($config)
-  dovecot::create_config_file_resources($configs)
+  Class[&#39;::dovecot::install&#39;]
+  -&gt; Class[&#39;::dovecot::configuration&#39;]
+  ~&gt; Class[&#39;::dovecot::service&#39;]
+  ~&gt; Class[&#39;::dovecot::poolmon&#39;]
 }</pre>
       </td>
     </tr>
@@ -365,9 +577,7 @@ class dovecot(
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 15 14:47:44 2017 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.3.4).
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
 </div>
 
     </div>
