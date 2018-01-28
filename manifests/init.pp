@@ -43,6 +43,8 @@ class dovecot(
   String $poolmon_config_file,
   String $poolmon_exec,
   Boolean $poolmon_manage,
+  Boolean $poolmon_service_enable,
+  Enum['running', 'stopped'] $poolmon_service_ensure,
   String $poolmon_service_file,
   String $poolmon_service_mode,
   Enum['rc', 'systemd'] $poolmon_service_provider,

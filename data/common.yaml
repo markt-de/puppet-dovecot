@@ -33,6 +33,8 @@ dovecot::poolmon_config:
   lockfile: '/var/run/poolmon.pid'
 dovecot::poolmon_exec: '/usr/local/sbin/poolmon'
 dovecot::poolmon_manage: false
+dovecot::poolmon_service_enable: true
+dovecot::poolmon_service_ensure: running
 dovecot::poolmon_service_file: '/etc/systemd/system/poolmon.service'
 dovecot::poolmon_service_mode: '0644'
 dovecot::poolmon_service_provider: 'systemd'
