@@ -5,8 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.0.1] - 2018-01-28
+This release only contains minor non-functional and documentation changes
+
 ### Fixes
 - Fix links in this changelog
+- Lint fixes
 
 ## [1.0.0] - 2018-01-28
 First stable release, now requires Puppet 4.9
@@ -30,5 +35,6 @@ First stable release, now requires Puppet 4.9
 ## 0.1.0 - 2017-07-31
 Initial release
 
-[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/oxc/puppet-dovecot/compare/v0.1.0...v1.0.0
