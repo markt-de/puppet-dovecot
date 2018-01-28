@@ -14,11 +14,11 @@
 ## Description
 
 This module installs and manages the dovecot imap server and its plugins, and provides
-resources and functions to configure the dovecot system. 
+resources and functions to configure the dovecot system.
 It does, however, not configure any of those systems beyond the upstream defaults.
 
-This module is intended to work with Puppet 4 and has been tested with 
-dovecot 2.2.22 on Ubuntu 16.04. Patches to support other setups are welcome.
+This module is intended to work with Puppet 5, tested dovceot and OS versions are listed
+below. Patches to support other setups are welcome.
 
 ## Setup
 
@@ -31,7 +31,7 @@ By default, this package...
 
 ### Beginning with dovecot
 
-While on a puppet-managed host, splitting the config into multiple conf.d files provides 
+While on a puppet-managed host, splitting the config into multiple conf.d files provides
 not much advantage, this module supports managing both the dovecot.conf file and several
 conf.d files.
 
@@ -68,7 +68,7 @@ dovecot::plugins:
   - sieve
 dovecot::config:
   protocols: imap sieve lmtp
-  hostname: "%{::fqdn}"  
+  hostname: "%{::fqdn}"
 dovecot::configs:
   '10-auth':
     disable_plaintext_auth: yes
@@ -86,20 +86,20 @@ dovecot::configs:
   '10-ssl':
     ssl: yes
     ssl_cert: '</etc/dovecot/ssl/dovecot.crt'
-    ssl_key: '</etc/dovecot/ssl/dovecot.key'    
+    ssl_key: '</etc/dovecot/ssl/dovecot.key'
 ```
 
-For advanced use-cases you can also use the provided `dovecot::create_config_resources` and 
-`dovecot::create_config_file_resources` functions, that are used to handle the $config and 
+For advanced use-cases you can also use the provided `dovecot::create_config_resources` and
+`dovecot::create_config_file_resources` functions, that are used to handle the $config and
 $configs parameters.
 
-If you want to use the dovecot:config resource directly, the easiest way is to put both the 
+If you want to use the dovecot:config resource directly, the easiest way is to put both the
 file (optional) and the hierachical config key into the resource title:
 
 ```puppet
 dovecot::config {
   'protocols': value => 'imap lmtp';
-  'listen': 
+  'listen':
      value => '*, ::',
      comment => 'Listen on all interfaces',
   ;
@@ -135,7 +135,7 @@ dovecot versions tested:
 
 * 2.2.10, 2.2.22
 
-Feel free to let me know if it correctly works on a different OS/setup, or 
+Feel free to let me know if it correctly works on a different OS/setup, or
 submit patches if it doesn't.
 
 ## Development
