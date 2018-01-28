@@ -9,7 +9,8 @@
       Optional[Array]   $check_port = undef,
       Optional[Array]   $check_ssl = undef,
       Optional[String]  $credfile = undef,
-      Optional[String]  $provider = undef | -%>
+      Optional[String]  $provider = undef,
+      Optional[Boolean] $enable = undef | -%>
 # This file is managed by Puppet. DO NOT EDIT.
 
 <% if ($check_port) { -%>
@@ -22,7 +23,11 @@
 <% if ($provider == 'systemd') { -%>
 <%   $prefix='OPTIONS=' -%>
 <% } elsif ($provider == 'rc') { -%>
+<%   if ($enable) { -%>
 poolmon_enable="YES"
+<%   } else { -%>
+poolmon_enable="NO"
+<%   } -%>
 poolmon_pidfile="<%= $lockfile %>"
 <%   $prefix='poolmon_flags="' -%>
 <%   $suffix='"' -%>

@@ -71,6 +71,7 @@ class dovecot::poolmon inherits dovecot {
         check_ssl     => $dovecot::poolmon_config['check_ssl'],
         credfile      => $poolmon_credfile,
         provider      => $dovecot::poolmon_service_provider,
+        enable        => $dovecot::poolmon_service_enable,
         }),
     }
 
@@ -83,8 +84,8 @@ class dovecot::poolmon inherits dovecot {
 
     # enable/start service
     service { 'poolmon':
-      ensure    => $dovecot::service_ensure,
-      enable    => $dovecot::service_enable,
+      ensure    => $dovecot::poolmon_service_ensure,
+      enable    => $dovecot::poolmon_service_enable,
       subscribe => [
           Archive[$filename],
           File[$dovecot::poolmon_config_file],

@@ -7,6 +7,12 @@
   "source": "https://github.com/oxc/puppet-dovecot",
   "project_page": "https://github.com/oxc/puppet-dovecot",
   "issues_url": "https://github.com/oxc/puppet-dovecot/issues",
+  "tags": [
+    "dovecot",
+    "imap",
+    "director",
+    "poolmon"
+  ],
   "dependencies": [
     {"name":"puppetlabs/stdlib","version_requirement":">= 3.0.0 < 5.0.0"},
     {"name":"puppetlabs/concat","version_requirement":">= 3.0.0 < 5.0.0"},
@@ -55,6 +61,9 @@
         "14.04",
         "16.04"
       ]
+    },
+    {
+      "operatingsystem": "FreeBSD"
     }
   ],
   "requirements": [
