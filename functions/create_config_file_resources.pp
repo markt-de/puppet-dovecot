@@ -28,10 +28,21 @@ function dovecot::create_config_file_resources(
     $file_params = {
       file => $key
     } + $params
-    dovecot::create_config_resources($value, $file_params)
-    dovecot::config { "dovecot.conf !include ${key} ${value}":
-      key   => '!include',
-      value => "conf.d/${key}.conf",
+
+    if $key =~ /\.conf\.ext$/ {
+      $ext = true
+    } else {
+      $ext = false
+    }
+
+    if $include_in_main_config and ! $ext {
+      dovecot::create_config_resources($value, $file_params)
+      dovecot::config { "dovecot.conf !include ${key} ${value}":
+        key   => '!include',
+        value => "conf.d/${key}.conf",
+      }
+    } else {
+      dovecot::create_config_resources($value, $file_params)
     }
   }
 }

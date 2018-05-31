@@ -91,6 +91,7 @@ define dovecot::config (
   }
 
   $full_file = $configfile ? {
+    /\.conf\.ext$/ => "${dovecot::config_path}/${configfile}",
     Undef   => "${dovecot::config_path}/dovecot.conf",
     default => "${dovecot::config_path}/conf.d/${configfile}.conf"
   }
