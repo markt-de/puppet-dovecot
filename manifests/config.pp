@@ -90,12 +90,6 @@ define dovecot::config (
     $configkey = pick($key, $name)
   }
 
-  # if $key =~ /\.conf\.ext$/ {
-  #   $ext = true
-  # } else {
-  #   $ext = false
-  # }
-
   $full_file = $configfile ? {
     /\.conf\.ext$/ => "${dovecot::config_path}/${configfile}",
     Undef   => "${dovecot::config_path}/dovecot.conf",
