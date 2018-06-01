@@ -29,9 +29,11 @@ function dovecot::create_config_file_resources(
       file => $key
     } + $params
     dovecot::create_config_resources($value, $file_params)
-    dovecot::config { "dovecot.conf !include ${key} ${value}":
-      key   => '!include',
-      value => "conf.d/${key}.conf",
+    if $include_in_main_config {
+      dovecot::config { "dovecot.conf !include ${key} ${value}":
+        key   => '!include',
+        value => "conf.d/${key}.conf",
+      }
     }
   }
 }
