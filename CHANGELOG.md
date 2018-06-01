@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixes
+- Fixed `dovecot::create_config_file_resources()` not respecting `$include_in_main_config` ([#8])
+
 ## [1.0.1] - 2018-01-28
 This release only contains minor non-functional and documentation changes
 
@@ -38,3 +41,4 @@ Initial release
 [Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v1.0.1...HEAD
 [1.0.1]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/oxc/puppet-dovecot/compare/v0.1.0...v1.0.0
+[#8]: https://github.com/oxc/puppet-dovecot/issues/8
