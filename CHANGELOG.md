@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Support for external config files as required for some userdb/passdb drivers ([#6])
+
 ### Fixes
 - Fixed `dovecot::create_config_file_resources()` not respecting `$include_in_main_config` ([#8])
 
@@ -42,3 +45,4 @@ Initial release
 [1.0.1]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/oxc/puppet-dovecot/compare/v0.1.0...v1.0.0
 [#8]: https://github.com/oxc/puppet-dovecot/issues/8
+[#6]: https://github.com/oxc/puppet-dovecot/issues/6

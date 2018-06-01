@@ -18,4 +18,10 @@ class dovecot::configuration inherits dovecot {
 
   dovecot::create_config_resources($dovecot::config)
   dovecot::create_config_file_resources($dovecot::configs)
+  $dovecot::extconfigs.each|$key, $value| {
+    dovecot::extconfigfile { $key:
+      entries => $value,
+      relpath => $key,
+    }
+  }
 }

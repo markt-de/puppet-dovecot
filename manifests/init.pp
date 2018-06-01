@@ -35,6 +35,7 @@ class dovecot(
   Hash $config,
   String $config_path,
   Hash $configs,
+  Hash $extconfigs,
   String $package_ensure,
   Boolean $package_manage,
   Array[String] $package_name,

@@ -10,6 +10,7 @@ lookup_options:
 dovecot::config_path: '/etc/dovecot'
 dovecot::config: {}
 dovecot::configs: {}
+dovecot::extconfigs: {}
 dovecot::package_ensure: 'present'
 dovecot::package_manage: true
 dovecot::plugin: {}
