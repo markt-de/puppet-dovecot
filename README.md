@@ -119,6 +119,10 @@ dovecot::config { 'dovecot passdb driver':
 }
 ```
 
+By default all regular config files are created with mode 0644, but this can be changed by
+creating the `dovecot::configfile` instance manually and specifying the `$mode` param, or
+by setting the global `dovecot::configs_mode` parameter/hiera key.
+
 ### External config files
 In some cases, dovecot requires an external config file to be passed as a config value. This
 is especially the case for SQL- and LDAP-based userdbs.
@@ -142,6 +146,10 @@ dovecot::extconfigs:
      default_pass_scheme: SHA256-CRYPT
      password_query: "SELECT email as user, password FROM virtual_users WHERE email='%u';"
 ```
+
+Since external config files often contain sensitive information like database passwords, they
+are set to mode 0600 by default. This can be changed using the type's `$mode` parameter, or
+the global `dovecot::extconfigs_mode` parameter/hiera key.
 
 *NOTE*: These external config files are usually stored in `/etc/dovecot`. Unfortunately,
 the example-config delivered with Dovecot also contains `.conf.ext` files in `conf.d/`, which

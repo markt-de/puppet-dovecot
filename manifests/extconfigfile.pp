@@ -20,7 +20,7 @@ define dovecot::extconfigfile(
   String $relpath = $title,
   Variant[Boolean, String] $warn = true,
   $group = 0,
-  $mode = '0644',
+  $mode = $dovecot::extconfigs_mode,
   $owner = 'root',
 ) {
   $_header = $warn ? {

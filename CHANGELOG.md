@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Support for external config files as required for some userdb/passdb drivers ([#6])
+- Make config files mode configurable
 
 ### Fixes
 - Fixed `dovecot::create_config_file_resources()` not respecting `$include_in_main_config` ([#8])
