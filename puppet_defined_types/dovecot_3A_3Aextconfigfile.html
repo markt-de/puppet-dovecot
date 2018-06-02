@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  Defined Type: dovecot::sieve
+  Defined Type: dovecot::extconfigfile
   
     &mdash; Documentation by YARD 0.9.13
   
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  pathId = "puppet_defined_types::dovecot::sieve";
+  pathId = "puppet_defined_types::dovecot::extconfigfile";
   relpath = '../';
 </script>
 
@@ -39,7 +39,7 @@
     <a href="../_index.html">Index (d)</a> &raquo;
     <span class='title'><span class='object_link'>Defined Types</span></span>
      &raquo; 
-    <span class="title">dovecot::sieve</span>
+    <span class="title">dovecot::extconfigfile</span>
   
 </div>
 
@@ -59,25 +59,25 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><h1>Defined Type: dovecot::sieve</h1>
+      <div id="content"><h1>Defined Type: dovecot::extconfigfile</h1>
 <div class="box_info">
   <dl>
     <dt>Defined in:</dt>
     <dd>
-      manifests/sieve.pp
+      manifests/extconfigfile.pp
     </dd>
   </dl>
 </div>
 
   <h2>Summary</h2>
-  simple sieve script resource that gets compiled by sievec and
-notifies the dovecot service.
+  resource for external config files providing a very basic
+key-value interface
 
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
     
-<h1 id="label-dovecot-3A-3Asievec">dovecot::sievec</h1>
+<h1 id="label-dovecot-3A-3Aextconfigfile">dovecot::extconfigfile</h1>
 
   </div>
 </div>
@@ -87,14 +87,56 @@ notifies the dovecot service.
   
     <li>
       
-        <span class='name'>content</span>
+        <span class='name'>entries</span>
       
       
-        <span class='type'>(<tt>Any</tt>)</span>
+        <span class='type'>(<tt>Hash[String, String]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
+        &mdash;
+        <div class='inline'>
+<p>a hash of string=string entries. All values will be written as-is to the
+file, any escaping must already be applied.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>relpath</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$title</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the path of the external config file relative to dovecot::config_path,
+including the desired extension. Defaults to the resource title.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>warn</span>
+      
+      
+        <span class='type'>(<tt>Variant[Boolean, String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>whether to prepend the default warning (if <code>true</code>), a custom
+warning (if a <code>String</code>), or nothing at all.</p>
+</div>
       
     </li>
   
@@ -119,7 +161,7 @@ notifies the dovecot service.
         <span class='type'>(<tt>Any</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&#39;0644&#39;</tt>)</em>
+        <em class="default">(defaults to: <tt>$dovecot::extconfigs_mode</tt>)</em>
       
       
     </li>
@@ -133,45 +175,6 @@ notifies the dovecot service.
       
       
         <em class="default">(defaults to: <tt>&#39;root&#39;</tt>)</em>
-      
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>path</span>
-      
-      
-        <span class='type'>(<tt>Any</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>$name</tt>)</em>
-      
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>sievec</span>
-      
-      
-        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>lookup(&#39;dovecot::sieve::sievec&#39;)</tt>)</em>
-      
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>source</span>
-      
-      
-        <span class='type'>(<tt>Any</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
     </li>
@@ -203,15 +206,6 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
         <pre class="lines">
 
 
-9
-10
-11
-12
-13
-14
-15
-16
-17
 18
 19
 20
@@ -229,37 +223,60 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
 32
 33
 34
-35</pre>
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/sieve.pp', line 9</span>
+        <pre class="code"><span class="info file"># File 'manifests/extconfigfile.pp', line 18</span>
 
-define dovecot::sieve(
-  $content = undef,
+define dovecot::extconfigfile(
+  Hash[String, String] $entries,
+  String $relpath = $title,
+  Variant[Boolean, String] $warn = true,
   $group = 0,
-  $mode = &#39;0644&#39;,
+  $mode = $dovecot::extconfigs_mode,
   $owner = &#39;root&#39;,
-  $path = $name,
-  Stdlib::Absolutepath $sievec = lookup(&#39;dovecot::sieve::sievec&#39;),
-  $source = undef,
 ) {
+  $_header = $warn ? {
+    true    =&gt; &quot;# This file is managed by Puppet. DO NOT EDIT.\n\n&quot;,
+    String  =&gt; &quot;${warn}\n&quot;,
+    default =&gt; &#39;&#39;,
+  }
 
-  file { &quot;dovecot sieve ${title}&quot;:
-    path    =&gt; $path,
+  $_entries = String($entries, { Hash =&gt; {
+    format =&gt; &#39;% h&#39;,
+    separator =&gt; &quot;\n&quot;,
+    separator2 =&gt; &#39; = &#39;,
+    string_formats =&gt; { Any =&gt; &#39;%s&#39; },
+  }})
+
+  $_content = &quot;${_header}${_entries}\n&quot;
+
+  file { &quot;dovecot external config file ${title}&quot;:
+    path    =&gt; &quot;${dovecot::config_path}/${relpath}&quot;,
     owner   =&gt; $owner,
     group   =&gt; $group,
     mode    =&gt; $mode,
-    content =&gt; $content,
-    source  =&gt; $source,
+    content =&gt; $_content,
     require =&gt; Class[&#39;dovecot::install&#39;],
+    notify  =&gt; Class[&#39;dovecot::service&#39;],
   }
-  ~&gt; exec { &quot;compile sieve ${title}&quot;:
-    command     =&gt; &quot;${sievec} ${path}&quot;,
-    user        =&gt; $owner,
-    group       =&gt; $group,
-    refreshonly =&gt; true,
-    notify      =&gt; Class[&#39;dovecot::service&#39;],
-  }
+
 }</pre>
       </td>
     </tr>

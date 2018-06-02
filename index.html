@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.13
   
 </title>
 
@@ -62,24 +62,24 @@
 
 <h4 id="label-Table+of+Contents">Table of Contents</h4>
 <ol><li>
-<p><a href="#description">Description</a></p>
+<p><a href="#label-Description">Description</a></p>
 </li><li>
-<p><a href="#setup">Setup - The basics of getting started with dovecot</a></p>
+<p><a href="#label-Setup+and+usage">Setup and Usage - The basics of getting started
+with dovecot</a></p>
 <ul><li>
-<p><a href="#what-dovecot-affects">What dovecot affects</a></p>
+<p><a href="#label-What+this+module+affects">What this module affects</a></p>
 </li><li>
-<p><a href="#beginning-with-dovecot">Beginning with dovecot</a></p>
+<p><a href="#label-Configuration+options">Configuration options</a></p>
+</li><li>
+<p><a href="#label-External+config+files">External config files</a></p>
 </li></ul>
 </li><li>
-<p><a href="#usage">Usage - Configuration options and additional
-functionality</a></p>
-</li><li>
-<p><a href="#reference">Reference - An under-the-hood peek at what the module
+<p><a href="#label-Reference">Reference - An under-the-hood peek at what the module
 is doing and how</a></p>
 </li><li>
-<p><a href="#limitations">Limitations - OS compatibility, etc.</a></p>
+<p><a href="#label-Limitations">Limitations - OS compatibility, etc.</a></p>
 </li><li>
-<p><a href="#development">Development - Guide for contributing to the
+<p><a href="#label-Development">Development - Guide for contributing to the
 module</a></p>
 </li></ol>
 
@@ -93,9 +93,9 @@ defaults.</p>
 <p>This module is intended to work with Puppet 5, tested dovceot and OS
 versions are listed below. Patches to support other setups are welcome.</p>
 
-<h2 id="label-Setup">Setup</h2>
+<h2 id="label-Setup+and+Usage">Setup and Usage</h2>
 
-<h3 id="label-What+dovecot+affects">What dovecot affects</h3>
+<h3 id="label-What+this+module+affects">What this module affects</h3>
 
 <p>By default, this package…</p>
 <ul><li>
@@ -104,7 +104,7 @@ versions are listed below. Patches to support other setups are welcome.</p>
 <p>recursively purges all dovecot config</p>
 </li></ul>
 
-<h3 id="label-Beginning+with+dovecot">Beginning with dovecot</h3>
+<h3 id="label-Configuration+options">Configuration options</h3>
 
 <p>While on a puppet-managed host, splitting the config into multiple conf.d
 files provides not much advantage, this module supports managing both the
@@ -130,7 +130,8 @@ and $configs for conf.d file entries:</p>
       log_path =&gt; &#39;syslog&#39;,
     },
   }
-}</code></pre>
+}
+</code></pre>
 
 <p>This can be conveniently used from hiera:</p>
 
@@ -158,15 +159,16 @@ dovecot::configs:
   &#39;10-ssl&#39;:
     ssl: yes
     ssl_cert: &#39;&lt;/etc/dovecot/ssl/dovecot.crt&#39;
-    ssl_key: &#39;&lt;/etc/dovecot/ssl/dovecot.key&#39;</code></pre>
+    ssl_key: &#39;&lt;/etc/dovecot/ssl/dovecot.key&#39;
+</code></pre>
 
 <p>For advanced use-cases you can also use the provided
 <code>dovecot::create_config_resources</code> and
 <code>dovecot::create_config_file_resources</code> functions, that are used
 to handle the $config and $configs parameters.</p>
 
-<p>If you want to use the dovecot:config resource directly, the easiest way is
-to put both the file (optional) and the hierachical config key into the
+<p>If you want to use the dovecot::config resource directly, the easiest way
+is to put both the file (optional) and the hierachical config key into the
 resource title:</p>
 
 <pre class="code ruby"><code class="ruby">dovecot::config {
@@ -177,7 +179,8 @@ resource title:</p>
   ;
   &#39;10-auth:passdb.driver&#39;: value =&gt; &#39;passwd-file&#39;;
   &#39;10-auth:passdb.args&#39;: value =&gt; &#39;username_format=%u /etc/dovecot/virtual_accounts_passwd&#39;
-}</code></pre>
+}
+</code></pre>
 
 <p>But you can also specify them separately:</p>
 
@@ -186,7 +189,56 @@ resource title:</p>
   sections =&gt; [&#39;passdb&#39;],
   key      =&gt; &#39;driver&#39;,
   value    =&gt; &#39;passwd-file&#39;,
-}</code></pre>
+}
+</code></pre>
+
+<p>By default all regular config files are created with mode 0644, but this
+can be changed by creating the <code>dovecot::configfile</code> instance
+manually and specifying the <code>$mode</code> param, or by setting the
+global <code>dovecot::configs_mode</code> parameter/hiera key.</p>
+
+<h3 id="label-External+config+files">External config files</h3>
+
+<p>In some cases, dovecot requires an external config file to be passed as a
+config value. This is especially the case for SQL- and LDAP-based userdbs.</p>
+
+<p>These external config files are using a similar syntax, but are parsed by a
+different parser (and at a different point of time), as <a
+href="https://wiki.dovecot.org/ConfigFile#External_config_files">explained
+in the Dovecot wiki</a>.</p>
+
+<p>This module supports such external config files using the
+<code>dovecot::extconfigfile</code> type, or the
+<code>dovecot::extconfigs</code> parameter/hiera key:</p>
+
+<pre class="code ruby"><code class="ruby">dovecot::configs:
+  &#39;10-auth&#39;:
+    passdb:
+      driver: sql
+      args: /etc/dovecot/dovecot-sql.conf.ext
+dovecot::extconfigs:
+  &#39;dovecot-sql.conf.ext&#39;:
+     driver: pgsql
+     connect: host=sql.example.com dbname=virtual user=virtual password=blarg
+     default_pass_scheme: SHA256-CRYPT
+     password_query: &quot;SELECT email as user, password FROM virtual_users WHERE email=&#39;%u&#39;;&quot;
+</code></pre>
+
+<p>Since external config files often contain sensitive information like
+database passwords, they are set to mode 0600 by default. This can be
+changed using the type&#39;s <code>$mode</code> parameter, or the global
+<code>dovecot::extconfigs_mode</code> parameter/hiera key.</p>
+
+<p><em>NOTE</em>: These external config files are usually stored in
+<code>/etc/dovecot</code>. Unfortunately, the example-config delivered with
+Dovecot also contains <code>.conf.ext</code> files in <code>conf.d/</code>,
+which are !included from <code>10-auth.conf</code>. Please note that these
+are <em>not</em> external config files as explained here, they are included
+and parsed by the normal config parser. The example config splits them out
+to provide multiple options the user can easily choose one from. In a
+puppet-based setup, this should not be necessary, and is thus currently not
+supported by this module. Please provide a valid use-case as a bug report,
+if you have one.</p>
 
 <h2 id="label-Reference">Reference</h2>
 

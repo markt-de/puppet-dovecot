@@ -6,7 +6,7 @@
 <title>
   Puppet Class: dovecot
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.13
   
 </title>
 
@@ -335,6 +335,39 @@ Default value: &#39;present&#39;.</p>
   
     <li>
       
+        <span class='name'>configs_mode</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>extconfigs</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>extconfigs_mode</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>package_name</span>
       
       
@@ -528,7 +561,10 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
 67
 68
 69
-70</pre>
+70
+71
+72
+73</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/init.pp', line 34</span>
@@ -537,6 +573,9 @@ class dovecot(
   Hash $config,
   String $config_path,
   Hash $configs,
+  String $configs_mode,
+  Hash $extconfigs,
+  String $extconfigs_mode,
   String $package_ensure,
   Boolean $package_manage,
   Array[String] $package_name,

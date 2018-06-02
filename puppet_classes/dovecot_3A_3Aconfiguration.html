@@ -6,7 +6,7 @@
 <title>
   Puppet Class: dovecot::configuration
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.13
   
 </title>
 
@@ -112,7 +112,13 @@
 18
 19
 20
-21</pre>
+21
+22
+23
+24
+25
+26
+27</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/configuration.pp', line 3</span>
@@ -135,6 +141,12 @@ class dovecot::configuration inherits dovecot {
 
   dovecot::create_config_resources($dovecot::config)
   dovecot::create_config_file_resources($dovecot::configs)
+  $dovecot::extconfigs.each|$key, $value| {
+    dovecot::extconfigfile { $key:
+      entries =&gt; $value,
+      relpath =&gt; $key,
+    }
+  }
 }</pre>
       </td>
     </tr>

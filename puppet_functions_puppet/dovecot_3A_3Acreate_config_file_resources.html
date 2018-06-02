@@ -6,7 +6,7 @@
 <title>
   Puppet Function: dovecot::create_config_file_resources (Puppet Language)
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.13
   
 </title>
 
@@ -223,7 +223,9 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
 34
 35
 36
-37</pre>
+37
+38
+39</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'functions/create_config_file_resources.pp', line 22</span>
@@ -238,9 +240,11 @@ function dovecot::create_config_file_resources(
       file =&gt; $key
     } + $params
     dovecot::create_config_resources($value, $file_params)
-    dovecot::config { &quot;dovecot.conf !include ${key} ${value}&quot;:
-      key   =&gt; &#39;!include&#39;,
-      value =&gt; &quot;conf.d/${key}.conf&quot;,
+    if $include_in_main_config {
+      dovecot::config { &quot;dovecot.conf !include ${key} ${value}&quot;:
+        key   =&gt; &#39;!include&#39;,
+        value =&gt; &quot;conf.d/${key}.conf&quot;,
+      }
     }
   }
 }</pre>

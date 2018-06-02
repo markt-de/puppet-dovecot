@@ -6,7 +6,7 @@
 <title>
   Defined Type: dovecot::configfile
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.13
   
 </title>
 
@@ -139,6 +139,45 @@ default warning</p>
       
     </li>
   
+    <li>
+      
+        <span class='name'>owner</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;root&#39;</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>group</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>0</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>mode</span>
+      
+      
+        <span class='type'>(<tt>Any</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$dovecot::configs_mode</tt>)</em>
+      
+      
+    </li>
+  
 </ul>
 
 
@@ -193,7 +232,10 @@ href="mailto:puppet@nospam.obeliks.de">puppet@nospam.obeliks.de</a></p>
 34
 35
 36
-37</pre>
+37
+38
+39
+40</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/configfile.pp', line 17</span>
@@ -202,11 +244,14 @@ define dovecot::configfile (
   Stdlib::Absolutepath $file = $title,
   Optional[String] $comment = undef,
   Enum[&#39;present&#39;, &#39;absent&#39;] $ensure = &#39;present&#39;,
+  $owner = &#39;root&#39;,
+  $group = 0,
+  $mode = $dovecot::configs_mode,
 ) {
   concat { $file:
-    owner  =&gt; &#39;root&#39;,
-    group  =&gt; 0,
-    mode   =&gt; &#39;0644&#39;,
+    owner  =&gt; $owner,
+    group  =&gt; $group,
+    mode   =&gt; $mode,
     warn   =&gt; !$comment,
     order  =&gt; &#39;alpha&#39;,
     notify =&gt; Class[&#39;dovecot::service&#39;],
