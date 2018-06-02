@@ -5,8 +5,8 @@
 1. [Description](#description)
 1. [Setup - The basics of getting started with dovecot](#setup)
     * [What dovecot affects](#what-dovecot-affects)
-    * [Beginning with dovecot](#beginning-with-dovecot)
-1. [Usage - Configuration options and additional functionality](#usage)
+    * [Usage - Configuration options and additional functionality](#usage)
+    * [External config files](#external-config-files)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
@@ -29,7 +29,7 @@ By default, this package...
 * installs the dovecot package
 * recursively purges all dovecot config
 
-### Beginning with dovecot
+### Usage - Configuration options and additional functionality
 
 While on a puppet-managed host, splitting the config into multiple conf.d files provides
 not much advantage, this module supports managing both the dovecot.conf file and several
