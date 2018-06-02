@@ -18,11 +18,14 @@ define dovecot::configfile (
   Stdlib::Absolutepath $file = $title,
   Optional[String] $comment = undef,
   Enum['present', 'absent'] $ensure = 'present',
+  $owner = 'root',
+  $group = 0,
+  $mode = $dovecot::configs_mode,
 ) {
   concat { $file:
-    owner  => 'root',
-    group  => 0,
-    mode   => '0644',
+    owner  => $owner,
+    group  => $group,
+    mode   => $mode,
     warn   => !$comment,
     order  => 'alpha',
     notify => Class['dovecot::service'],

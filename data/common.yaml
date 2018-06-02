@@ -10,6 +10,9 @@ lookup_options:
 dovecot::config_path: '/etc/dovecot'
 dovecot::config: {}
 dovecot::configs: {}
+dovecot::configs_mode: '0644'
+dovecot::extconfigs: {}
+dovecot::extconfigs_mode: '0600'
 dovecot::package_ensure: 'present'
 dovecot::package_manage: true
 dovecot::plugin: {}

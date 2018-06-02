@@ -93,7 +93,7 @@ For advanced use-cases you can also use the provided `dovecot::create_config_res
 `dovecot::create_config_file_resources` functions, that are used to handle the $config and
 $configs parameters.
 
-If you want to use the dovecot:config resource directly, the easiest way is to put both the
+If you want to use the dovecot::config resource directly, the easiest way is to put both the
 file (optional) and the hierachical config key into the resource title:
 
 ```puppet
@@ -118,6 +118,46 @@ dovecot::config { 'dovecot passdb driver':
   value    => 'passwd-file',
 }
 ```
+
+By default all regular config files are created with mode 0644, but this can be changed by
+creating the `dovecot::configfile` instance manually and specifying the `$mode` param, or
+by setting the global `dovecot::configs_mode` parameter/hiera key.
+
+### External config files
+In some cases, dovecot requires an external config file to be passed as a config value. This
+is especially the case for SQL- and LDAP-based userdbs.
+
+These external config files are using a similar syntax, but are parsed by a different parser
+(and at a different point of time), as [explained in the Dovecot wiki](https://wiki.dovecot.org/ConfigFile#External_config_files).
+
+This module supports such external config files using the `dovecot::extconfigfile` type, or
+the `dovecot::extconfigs` parameter/hiera key:
+
+```yaml
+dovecot::configs:
+  '10-auth':
+    passdb:
+      driver: sql
+      args: /etc/dovecot/dovecot-sql.conf.ext
+dovecot::extconfigs:
+  'dovecot-sql.conf.ext':
+     driver: pgsql
+     connect: host=sql.example.com dbname=virtual user=virtual password=blarg
+     default_pass_scheme: SHA256-CRYPT
+     password_query: "SELECT email as user, password FROM virtual_users WHERE email='%u';"
+```
+
+Since external config files often contain sensitive information like database passwords, they
+are set to mode 0600 by default. This can be changed using the type's `$mode` parameter, or
+the global `dovecot::extconfigs_mode` parameter/hiera key.
+
+*NOTE*: These external config files are usually stored in `/etc/dovecot`. Unfortunately,
+the example-config delivered with Dovecot also contains `.conf.ext` files in `conf.d/`, which
+are !included from `10-auth.conf`. Please note that these are *not* external config files as
+explained here, they are included and parsed by the normal config parser. The example config
+splits them out to provide multiple options the user can easily choose one from. In a
+puppet-based setup, this should not be necessary, and is thus currently not supported by this
+module. Please provide a valid use-case as a bug report, if you have one.
 
 ## Reference
 
