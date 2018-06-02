@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.1.0] - 2018-06-02
+This release adds support for managing external config files
+
 ### Added
 - Support for external config files as required for some userdb/passdb drivers ([#6])
 - Make config files mode configurable
@@ -42,7 +45,8 @@ First stable release, now requires Puppet 4.9
 ## 0.1.0 - 2017-07-31
 Initial release
 
-[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/oxc/puppet-dovecot/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/oxc/puppet-dovecot/compare/v0.1.0...v1.0.0
 [#8]: https://github.com/oxc/puppet-dovecot/issues/8
