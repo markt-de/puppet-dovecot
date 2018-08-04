@@ -54,6 +54,7 @@ class dovecot(
   Enum['rc', 'systemd'] $poolmon_service_provider,
   String $poolmon_version,
   Boolean $purge_unmanaged,
+  Boolean $directory_private_manage,
   Hash $plugin,
   Array[String[1]] $plugins,
   Boolean $service_enable,

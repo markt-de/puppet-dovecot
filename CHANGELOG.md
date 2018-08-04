@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Manage /etc/dovecot/private directory (if enabled, default on Debian-based systems),
+  to prevent log noise and service notifies after package updates
 
 ## [1.1.0] - 2018-06-02
 This release adds support for managing external config files

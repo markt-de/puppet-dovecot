@@ -16,6 +16,14 @@ class dovecot::configuration inherits dovecot {
     ensure => 'directory',
   }
 
+  if ($dovecot::directory_private_manage) {
+    # "private" directory is part of many distros, if requested (true by
+    # default) manage it to keep log noise low on package updates
+    file { "${dovecot::config_path}/private":
+      ensure => 'directory',
+    }
+  }
+
   dovecot::create_config_resources($dovecot::config)
   dovecot::create_config_file_resources($dovecot::configs)
   $dovecot::extconfigs.each|$key, $value| {

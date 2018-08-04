@@ -43,6 +43,7 @@ dovecot::poolmon_service_mode: '0644'
 dovecot::poolmon_service_provider: 'systemd'
 dovecot::poolmon_version: '0.6'
 dovecot::purge_unmanaged: true
+dovecot::directory_private_manage: false
 dovecot::service_enable: true
 dovecot::service_ensure: running
 dovecot::service_manage: true
