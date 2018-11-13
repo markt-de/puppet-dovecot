@@ -17,6 +17,8 @@ dovecot::plugin:
     package_name: ['dovecot-lucene']
   managesieve:
     package_name: ['dovecot-managesieved']
+  metadata:
+    package_name: ['dovecot-metadata-plugin']
   mysql:
     package_name: ['dovecot-mysql']
   pgsql:
