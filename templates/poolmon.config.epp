@@ -20,8 +20,9 @@
 <%   $_sslopts = $check_ssl.map |$sslport| { "--ssl=${sslport} " } -%>
 <% } -%>
 
-<% if ($provider == 'systemd') { -%>
-<%   $prefix='OPTIONS=' -%>
+<% if ($provider == 'init') or ($provider == 'systemd') { -%>
+<%   $prefix='OPTIONS="' -%>
+<%   $suffix='"' -%>
 <% } elsif ($provider == 'rc') { -%>
 <%   if ($enable) { -%>
 poolmon_enable="YES"
