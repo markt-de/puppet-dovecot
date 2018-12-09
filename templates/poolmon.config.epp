@@ -21,8 +21,7 @@
 <% } -%>
 
 <% if ($provider == 'init') or ($provider == 'systemd') { -%>
-<%   $prefix='OPTIONS="' -%>
-<%   $suffix='"' -%>
+<%   $prefix='OPTIONS=' -%>
 <% } elsif ($provider == 'rc') { -%>
 <%   if ($enable) { -%>
 poolmon_enable="YES"
