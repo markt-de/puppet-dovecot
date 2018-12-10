@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Manage /etc/dovecot/private directory (if enabled, default on Debian-based systems),
   to prevent log noise and service notifies after package updates
+- Add SysVinit support for poolmon service ([#12])
+
+### Fixes
+- Fix poolmon systemd service generation ([#12])
 
 ## [1.1.0] - 2018-06-02
 This release adds support for managing external config files
@@ -52,5 +56,6 @@ Initial release
 [1.1.0]: https://github.com/oxc/puppet-dovecot/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/oxc/puppet-dovecot/compare/v0.1.0...v1.0.0
+[#12]: https://github.com/oxc/puppet-dovecot/pull/12
 [#8]: https://github.com/oxc/puppet-dovecot/issues/8
 [#6]: https://github.com/oxc/puppet-dovecot/issues/6
