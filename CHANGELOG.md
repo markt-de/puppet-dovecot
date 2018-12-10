@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.2.0] - 2018-12-10
+This release mainly fixes and improves poolmon service management
+
 ### Added
 - Manage /etc/dovecot/private directory (if enabled, default on Debian-based systems),
   to prevent log noise and service notifies after package updates
@@ -52,7 +56,8 @@ First stable release, now requires Puppet 4.9
 ## 0.1.0 - 2017-07-31
 Initial release
 
-[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/oxc/puppet-dovecot/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/oxc/puppet-dovecot/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/oxc/puppet-dovecot/compare/v0.1.0...v1.0.0
