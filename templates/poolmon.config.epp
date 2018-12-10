@@ -20,7 +20,7 @@
 <%   $_sslopts = $check_ssl.map |$sslport| { "--ssl=${sslport} " } -%>
 <% } -%>
 
-<% if ($provider == 'systemd') { -%>
+<% if ($provider == 'init') or ($provider == 'systemd') { -%>
 <%   $prefix='OPTIONS=' -%>
 <% } elsif ($provider == 'rc') { -%>
 <%   if ($enable) { -%>

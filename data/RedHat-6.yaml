@@ -1,0 +1,4 @@
+---
+dovecot::poolmon_service_file: '/etc/init.d/poolmon'
+dovecot::poolmon_service_mode: '0755'
+dovecot::poolmon_service_provider: 'init'

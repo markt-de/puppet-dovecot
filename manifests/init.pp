@@ -51,7 +51,7 @@ class dovecot(
   Enum['running', 'stopped'] $poolmon_service_ensure,
   String $poolmon_service_file,
   String $poolmon_service_mode,
-  Enum['rc', 'systemd'] $poolmon_service_provider,
+  Enum['init', 'rc', 'systemd'] $poolmon_service_provider,
   String $poolmon_version,
   Boolean $purge_unmanaged,
   Boolean $directory_private_manage,
