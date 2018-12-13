@@ -15,9 +15,13 @@
 
 <% if ($check_port) { -%>
 <%   $_portopts = $check_port.map |$port| { "--port=${port} " } -%>
+<% } else { -%>
+<%   $_portopts = [] -%>
 <% } -%>
 <% if ($check_ssl) { -%>
 <%   $_sslopts = $check_ssl.map |$sslport| { "--ssl=${sslport} " } -%>
+<% } else { -%>
+<%   $_sslopts = [] -%>
 <% } -%>
 
 <% if ($provider == 'init') or ($provider == 'systemd') { -%>
