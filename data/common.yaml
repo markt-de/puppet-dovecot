@@ -4,6 +4,10 @@ lookup_options:
   '^dovecot::(.*::)?package_name$':
     merge:
       strategy: first
+  # Do NOT deep merge poolmon config to allow replacing default values.
+  "dovecot::poolmon_config":
+    merge:
+      strategy: hash
   '^dovecot::.*':
     merge:
       strategy: deep
