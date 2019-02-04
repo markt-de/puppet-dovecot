@@ -7,6 +7,7 @@
     * [What this module affects](#what-this-module-affects)
     * [Configuration options](#configuration-options)
     * [External config files](#external-config-files)
+    * [Poolmon configuration](#poolmon-configuration)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
     * [Compatibility](#compatibility)
