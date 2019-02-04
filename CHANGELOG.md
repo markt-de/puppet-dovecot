@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.0.0] - 2019-02-04
 This release includes one breaking change, the switch to "hash" merge behaviour
 for `$dovecot::poolmon_config`. This will most likely not affect your
 configuration, but in theory it might, so this is released as a new major
@@ -63,7 +65,8 @@ First stable release, now requires Puppet 4.9
 ## 0.1.0 - 2017-07-31
 Initial release
 
-[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/oxc/puppet-dovecot/compare/v1.2.0...v2.0.0
 [1.2.0]: https://github.com/oxc/puppet-dovecot/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/oxc/puppet-dovecot/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...v1.0.1
