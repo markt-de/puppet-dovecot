@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+This release includes one breaking change, the switch to "hash" merge behaviour
+for `$dovecot::poolmon_config`. This will most likely not affect your
+configuration, but in theory it might, so this is released as a new major
+version in conformance with SemVer.
+
+### Changed
+- `$dovecot::poolmon_config` now uses "hash" merge behaviour ([#13]).
 
 ## [1.2.0] - 2018-12-10
 This release mainly fixes and improves poolmon service management
@@ -61,6 +68,7 @@ Initial release
 [1.1.0]: https://github.com/oxc/puppet-dovecot/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/oxc/puppet-dovecot/compare/v0.1.0...v1.0.0
+[#13]: https://github.com/oxc/puppet-dovecot/pull/13
 [#12]: https://github.com/oxc/puppet-dovecot/pull/12
 [#8]: https://github.com/oxc/puppet-dovecot/issues/8
 [#6]: https://github.com/oxc/puppet-dovecot/issues/6
