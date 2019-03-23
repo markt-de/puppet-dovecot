@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- Increased compatible dependency versions in metadata ([#15] & [#16])
+
 ## [2.0.0] - 2019-02-04
 This release includes one breaking change, the switch to "hash" merge behaviour
 for `$dovecot::poolmon_config`. This will most likely not affect your
@@ -71,6 +74,8 @@ Initial release
 [1.1.0]: https://github.com/oxc/puppet-dovecot/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/oxc/puppet-dovecot/compare/v0.1.0...v1.0.0
+[#16]: https://github.com/oxc/puppet-dovecot/issues/16
+[#15]: https://github.com/oxc/puppet-dovecot/pull/15
 [#13]: https://github.com/oxc/puppet-dovecot/pull/13
 [#12]: https://github.com/oxc/puppet-dovecot/pull/12
 [#8]: https://github.com/oxc/puppet-dovecot/issues/8
