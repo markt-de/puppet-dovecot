@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Add support for additional content in extconfig files ([#19])
+
 ## [2.1.0] - 2019-03-23
 This release solely changes documentation and metadata.
 
@@ -78,6 +81,7 @@ Initial release
 [1.1.0]: https://github.com/oxc/puppet-dovecot/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/oxc/puppet-dovecot/compare/v0.1.0...v1.0.0
+[#19]: https://github.com/oxc/puppet-dovecot/issues/19
 [#16]: https://github.com/oxc/puppet-dovecot/issues/16
 [#15]: https://github.com/oxc/puppet-dovecot/pull/15
 [#13]: https://github.com/oxc/puppet-dovecot/pull/13
