@@ -40,7 +40,7 @@ define dovecot::extconfigfile(
   if $additional_content {
     $_additional_content = "${additional_content}\n"
   } else {
-    $_additional_content = ""
+    $_additional_content = ''
   }
 
   $_content = "${_header}${_entries}\n${additional_content}"
