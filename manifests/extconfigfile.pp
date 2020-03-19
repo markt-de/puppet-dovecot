@@ -17,6 +17,7 @@
 #
 define dovecot::extconfigfile(
   Hash[String, String] $entries,
+  Optional[String] $additional_content = undef,
   String $relpath = $title,
   Variant[Boolean, String] $warn = true,
   $group = 0,
@@ -36,7 +37,13 @@ define dovecot::extconfigfile(
     string_formats => { Any => '%s' },
   }})
 
-  $_content = "${_header}${_entries}\n"
+  if $additional_content {
+    $_additional_content = "${additional_content}\n"
+  } else {
+    $_additional_content = ""
+  }
+
+  $_content = "${_header}${_entries}\n${additional_content}"
 
   file { "dovecot external config file ${title}":
     path    => "${dovecot::config_path}/${relpath}",

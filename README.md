@@ -155,6 +155,27 @@ Since external config files often contain sensitive information like database pa
 are set to mode 0600 by default. This can be changed using the type's `$mode` parameter, or
 the global `dovecot::extconfigs_mode` parameter/hiera key.
 
+If you need to specify additional content in the file, like dict maps, you can use the 
+extended notation that takes an `entries` and an `additional_content` key:
+
+```yaml
+dovecot::extconfigs:
+  'dovecot-dict-sql.conf.ext':
+    entries:
+      connect: host=localhost dbname=mails user=sqluser password=sqlpass
+    additional_content: |+
+      map {
+        pattern = shared/shared-boxes/user/$to/$from
+        table = user_shares
+        value_field = dummy
+
+        fields {
+          from_user = $from
+          to_user = $to
+        }
+      }
+```
+
 *NOTE*: These external config files are usually stored in `/etc/dovecot`. Unfortunately,
 the example-config delivered with Dovecot also contains `.conf.ext` files in `conf.d/`, which
 are !included from `10-auth.conf`. Please note that these are *not* external config files as
