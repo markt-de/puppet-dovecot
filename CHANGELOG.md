@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.3.0] - 2020-04-07
+This release solely changes documentation and metadata.
+
+### Changed
+- Increased compatible dependency versions in metadata ([#23])
+
 ## [2.2.0] - 2020-03-20
 This release adds support for additional content in extconfig files.
 
@@ -77,7 +83,8 @@ First stable release, now requires Puppet 4.9
 ## 0.1.0 - 2017-07-31
 Initial release
 
-[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/oxc/puppet-dovecot/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/oxc/puppet-dovecot/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/oxc/puppet-dovecot/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/oxc/puppet-dovecot/compare/v1.2.0...v2.0.0
@@ -85,6 +92,7 @@ Initial release
 [1.1.0]: https://github.com/oxc/puppet-dovecot/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/oxc/puppet-dovecot/compare/v0.1.0...v1.0.0
+[#23]: https://github.com/oxc/puppet-dovecot/pull/23
 [#19]: https://github.com/oxc/puppet-dovecot/issues/19
 [#16]: https://github.com/oxc/puppet-dovecot/issues/16
 [#15]: https://github.com/oxc/puppet-dovecot/pull/15
