@@ -14,6 +14,8 @@ class dovecot::configuration inherits dovecot {
   # always keep/create conf.d
   file { "${dovecot::config_path}/conf.d":
     ensure => 'directory',
+    recurse => $dovecot::purge_unmanaged,
+    purge   => $dovecot::purge_unmanaged,
   }
 
   if ($dovecot::directory_private_manage) {
@@ -21,6 +23,8 @@ class dovecot::configuration inherits dovecot {
     # default) manage it to keep log noise low on package updates
     file { "${dovecot::config_path}/private":
       ensure => 'directory',
+      recurse => $dovecot::purge_unmanaged,
+      purge   => $dovecot::purge_unmanaged,
     }
   }
 
