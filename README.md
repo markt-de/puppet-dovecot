@@ -20,8 +20,8 @@ This module installs and manages the dovecot imap server and its plugins, and pr
 resources and functions to configure the dovecot system.
 It does, however, not configure any of those systems beyond the upstream defaults.
 
-This module is intended to work with Puppet 5, tested dovceot and OS versions are listed
-below. Patches to support other setups are welcome.
+This module is intended to work with Puppet 5 and 6, tested dovceot and OS versions are
+listed below. Patches to support other setups are welcome.
 
 ## Setup and Usage
 
@@ -225,7 +225,9 @@ OS Versions tested:
 
 dovecot versions tested:
 
-* 2.2.10, 2.2.22
+* 2.2.10
+* 2.2.22
+* 2.2.36
 
 Feel free to let me know if it correctly works on a different OS/setup, or
 submit patches if it doesn't.
