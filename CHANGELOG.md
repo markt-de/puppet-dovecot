@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Changed
 - Increased compatible stdlib dependency versions in metadata ([#25])
+- Convert to PDK
 
 ## [3.0.0] - 2020-04-07
 This release modifies the behaviour of `purge_unmanaged` parameter to include

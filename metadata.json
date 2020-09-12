@@ -7,16 +7,19 @@
   "source": "https://github.com/oxc/puppet-dovecot",
   "project_page": "https://github.com/oxc/puppet-dovecot",
   "issues_url": "https://github.com/oxc/puppet-dovecot/issues",
-  "tags": [
-    "dovecot",
-    "imap",
-    "director",
-    "poolmon"
-  ],
   "dependencies": [
-    {"name":"puppetlabs/stdlib","version_requirement":">= 3.0.0 < 7.0.0"},
-    {"name":"puppetlabs/concat","version_requirement":">= 3.0.0 < 7.0.0"},
-    {"name":"puppet/archive","version_requirement":">= 2.0.0 < 5.0.0"}
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 3.0.0 < 7.0.0"
+    },
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">= 3.0.0 < 7.0.0"
+    },
+    {
+      "name": "puppet/archive",
+      "version_requirement": ">= 2.0.0 < 5.0.0"
+    }
   ],
   "operatingsystem_support": [
     {
@@ -73,5 +76,13 @@
       "version_requirement": ">= 4.9.0 < 7.0.0"
     }
   ],
-  "data_provider": null
+  "tags": [
+    "dovecot",
+    "imap",
+    "director",
+    "poolmon"
+  ],
+  "pdk-version": "1.18.1",
+  "template-url": "https://github.com/puppetlabs/pdk-templates#1.18.1",
+  "template-ref": "tags/1.18.1-0-g3d2e75c"
 }
