@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.0] - 2020-09-12
+This release now uses PDK and increases dependency compatibility.
+
 ## Changed
 - Increased compatible stdlib dependency versions in metadata ([#25])
 - Convert to PDK
@@ -99,7 +102,8 @@ First stable release, now requires Puppet 4.9
 ## 0.1.0 - 2017-07-31
 Initial release
 
-[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/oxc/puppet-dovecot/compare/v3.1.0...HEAD
+[3.1.0]: https://github.com/oxc/puppet-dovecot/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/oxc/puppet-dovecot/compare/v2.3.0...v3.0.0
 [2.3.0]: https://github.com/oxc/puppet-dovecot/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/oxc/puppet-dovecot/compare/v2.1.0...v2.2.0
@@ -109,6 +113,7 @@ Initial release
 [1.1.0]: https://github.com/oxc/puppet-dovecot/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/oxc/puppet-dovecot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/oxc/puppet-dovecot/compare/v0.1.0...v1.0.0
+[#25]: https://github.com/oxc/puppet-dovecot/pull/25
 [#23]: https://github.com/oxc/puppet-dovecot/pull/23
 [#22]: https://github.com/oxc/puppet-dovecot/pull/22
 [#19]: https://github.com/oxc/puppet-dovecot/issues/19
