@@ -26,6 +26,7 @@
 
 <% if ($provider == 'init') or ($provider == 'systemd') { -%>
 <%   $prefix='OPTIONS=' -%>
+<%   $suffix='' -%>
 <% } elsif ($provider == 'rc') { -%>
 <%   if ($enable) { -%>
 poolmon_enable="YES"
@@ -37,4 +38,4 @@ poolmon_pidfile="<%= $lockfile %>"
 <%   $suffix='"' -%>
 <% } -%>
 
-<%= $prefix %><% if ($logfile) { %>--logfile="<%= $logfile %>" <% } -%><% if ($lockfile) { %>--lockfile="<%= $lockfile %>" <% } -%><% if ($socket) { %>--socket="<%= $socket %>" <% } -%><% if ($log_debug) { %>--debug <% } -%><% if ($scan_interval) { %>--interval="<%= $scan_interval %>" <% } -%><% if ($check_timeout) { %>--timeout="<%= $check_timeout %>" <% } -%><% if ($lmtp_from) { %>--lmtp-from="<%= $lmtp_from %>" <% } -%><% if ($lmtp_to) { %>--lmtp-to="<%= $lmtp_to %>" <% } -%><% if ($poolmon_credfile) { %>--credfile="<%= $poolmon_credfile %>" <% } -%><%= $_portopts.join('') %> <%= $_sslopts.join('') %><%= $suffix %>
+<%= $prefix %><% if ($logfile) { %>--logfile="<%= $logfile %>" <% } -%><% if ($lockfile) { %>--lockfile="<%= $lockfile %>" <% } -%><% if ($socket) { %>--socket="<%= $socket %>" <% } -%><% if ($log_debug) { %>--debug <% } -%><% if ($scan_interval) { %>--interval="<%= $scan_interval %>" <% } -%><% if ($check_timeout) { %>--timeout="<%= $check_timeout %>" <% } -%><% if ($lmtp_from) { %>--lmtp-from="<%= $lmtp_from %>" <% } -%><% if ($lmtp_to) { %>--lmtp-to="<%= $lmtp_to %>" <% } -%><% if ($credfile) { %>--credfile="<%= $credfile %>" <% } -%><%= $_portopts.join('') %> <%= $_sslopts.join('') %><%= $suffix %>
