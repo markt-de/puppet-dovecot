@@ -50,6 +50,8 @@ class dovecot::poolmon inherits dovecot {
           Service['poolmon'],
         ]
       }
+    } else {
+      $poolmon_credfile = undef
     }
 
     # create service configuration file
