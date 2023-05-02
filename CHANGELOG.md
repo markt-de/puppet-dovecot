@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## Added
+- Enable GitHub Actions
+
 ## Changed
 - Purge directories recursively
 - Update PDK to 2.7.1

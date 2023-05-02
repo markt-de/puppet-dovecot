@@ -2,5 +2,11 @@
 # See https://github.com/puppetlabs/puppetlabs_spec_helper#using-fixtures for details
 ---
 fixtures:
+  repositories:
+    facts: "https://github.com/puppetlabs/puppetlabs-facts.git"
+    provision: "https://github.com/puppetlabs/provision.git"
+    puppet_agent: "https://github.com/puppetlabs/puppetlabs-puppet_agent.git"
   forge_modules:
-#     stdlib: "puppetlabs/stdlib"
+    stdlib: "puppetlabs/stdlib"
+  symlinks:
+    dovecot: "#{source_dir}"
