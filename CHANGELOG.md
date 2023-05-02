@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## Changed
+- Purge directories recursively
 - Update PDK to 2.7.1
 - Bump OS and Puppet dependencies
 - Minor improvement to unit test
+
+### Fixes
+- Frequent service restarts because directories cannot be purged
 
 ## [3.1.0] - 2020-09-12
 This release now uses PDK and increases dependency compatibility.

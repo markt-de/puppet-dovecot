@@ -7,6 +7,7 @@ class dovecot::configuration inherits dovecot {
       path    => $dovecot::config_path,
       recurse => true,
       purge   => true,
+      force   => true,
       before  => File["${dovecot::config_path}/conf.d"]
     }
   }
