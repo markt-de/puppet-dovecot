@@ -16,11 +16,11 @@ jobs:
         puppet_version: [6, 7]
 
     name: Check / Puppet ${{ matrix.puppet_version }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Run pdk validate
         uses: puppets-epic-show-theatre/action-pdk-validate@v1
@@ -40,7 +40,7 @@ jobs:
         puppet_version: [6, 7]
 
     name: Acceptance / ${{ matrix.os }} / Puppet ${{ matrix.puppet_version }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - check
 
@@ -50,7 +50,7 @@ jobs:
           echo '{"ipv6":true,"fixed-cidr-v6":"2001:db8:1::/64"}' | sudo tee /etc/docker/daemon.json
           sudo service docker restart
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
