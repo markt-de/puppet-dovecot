@@ -7,6 +7,8 @@ fixtures:
     provision: "https://github.com/puppetlabs/provision.git"
     puppet_agent: "https://github.com/puppetlabs/puppetlabs-puppet_agent.git"
   forge_modules:
+    archive: "puppet/archive"
+    concat: "puppetlabs/concat"
     stdlib: "puppetlabs/stdlib"
   symlinks:
     dovecot: "#{source_dir}"
