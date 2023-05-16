@@ -39,20 +39,6 @@
       ]
     },
     {
-      "operatingsystem": "OracleLinux",
-      "operatingsystemrelease": [
-        "7",
-        "8",
-        "9"
-      ]
-    },
-    {
-      "operatingsystem": "Scientific",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
         "10",
@@ -73,7 +59,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 6.0.0 < 8.0.0"
+      "version_requirement": ">= 6.0.0 < 9.0.0"
     }
   ],
   "tags": [

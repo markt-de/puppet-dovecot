@@ -4,19 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [4.0.0] - 2023-05-16
 
 ## Added
 - Enable GitHub Actions
+- Add basic acceptance test
 
 ## Changed
-- Purge directories recursively
-- Update PDK to 2.7.1
+- Purge directories recursively ([#29])
+- Update PDK to 2.7.1 ([#31])
 - Bump OS and Puppet dependencies
 - Minor improvement to unit test
 
 ### Fixes
-- Frequent service restarts because directories cannot be purged
+- Frequent service restarts because directories cannot be purged ([#29])
+- Unknown variables in poolmon config ([#30])
 
 ## [3.1.0] - 2020-09-12
 This release now uses PDK and increases dependency compatibility.
@@ -114,7 +116,8 @@ First stable release, now requires Puppet 4.9
 ## 0.1.0 - 2017-07-31
 Initial release
 
-[Unreleased]: https://github.com/markt-de/puppet-dovecot/compare/v3.1.0...HEAD
+[Unreleased]: https://github.com/markt-de/puppet-dovecot/compare/v4.0.0...HEAD
+[4.0.0]: https://github.com/markt-de/puppet-dovecot/compare/v3.1.0...v4.0.0
 [3.1.0]: https://github.com/markt-de/puppet-dovecot/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/markt-de/puppet-dovecot/compare/v2.3.0...v3.0.0
 [2.3.0]: https://github.com/markt-de/puppet-dovecot/compare/v2.2.0...v2.3.0
@@ -125,6 +128,9 @@ Initial release
 [1.1.0]: https://github.com/markt-de/puppet-dovecot/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/markt-de/puppet-dovecot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/markt-de/puppet-dovecot/compare/v0.1.0...v1.0.0
+[#31]: https://github.com/markt-de/puppet-dovecot/pull/31
+[#30]: https://github.com/markt-de/puppet-dovecot/pull/30
+[#29]: https://github.com/markt-de/puppet-dovecot/pull/29
 [#25]: https://github.com/markt-de/puppet-dovecot/pull/25
 [#23]: https://github.com/markt-de/puppet-dovecot/pull/23
 [#22]: https://github.com/markt-de/puppet-dovecot/pull/22

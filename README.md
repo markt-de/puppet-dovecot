@@ -1,5 +1,9 @@
 # puppet-dovecot
 
+[![Build Status](https://github.com/markt-de/puppet-dovecot/actions/workflows/ci.yaml/badge.svg)](https://github.com/markt-de/puppet-dovecot/actions/workflows/ci.yaml)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/markt/dovecot.svg)](https://forge.puppetlabs.com/markt/dovecot)
+[![Puppet Forge](https://img.shields.io/puppetforge/dt/markt/dovecot.svg)](https://forge.puppetlabs.com/markt/dovecot)
+
 #### Table of Contents
 
 1. [Description](#description)
