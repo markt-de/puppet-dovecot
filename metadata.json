@@ -1,12 +1,12 @@
 {
-  "name": "oxc-dovecot",
+  "name": "markt-dovecot",
   "version": "3.1.0",
-  "author": "oxc",
+  "author": "markt.de",
   "summary": "Configure and manage a dovecot IMAP server",
   "license": "Apache-2.0",
-  "source": "https://github.com/oxc/puppet-dovecot",
-  "project_page": "https://github.com/oxc/puppet-dovecot",
-  "issues_url": "https://github.com/oxc/puppet-dovecot/issues",
+  "source": "https://github.com/markt-de/puppet-dovecot",
+  "project_page": "https://github.com/markt-de/puppet-dovecot",
+  "issues_url": "https://github.com/markt-de/puppet-dovecot/issues",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",

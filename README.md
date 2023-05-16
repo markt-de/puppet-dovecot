@@ -1,4 +1,4 @@
-# dovecot
+# puppet-dovecot
 
 #### Table of Contents
 
