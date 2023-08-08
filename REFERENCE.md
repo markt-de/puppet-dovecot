@@ -8,28 +8,23 @@
 
 #### Public Classes
 
-* [`dovecot`](#dovecot): This class allows simple configuration of the dovecot imap server.
-
-There is no semantic abstraction done in this class, all config
-parameters are passed directly to dovecot via config files.
+* [`dovecot`](#dovecot): This class allows simple configuration of the dovecot server.
 
 #### Private Classes
 
-* `dovecot::configuration`: This class handles dovecot configuration. Avoid modifying private classes.
-* `dovecot::install`: This class handles packages. Avoid modifying private classes.
-* `dovecot::poolmon`: This class handles poolmon. Avoid modifying private classes.
-* `dovecot::service`: This class handles services. Avoid modifying private classes.
+* `dovecot::configuration`: This class handles dovecot configuration.
+* `dovecot::install`: This class handles packages.
+* `dovecot::poolmon`: Installs and configures Poolmon.
+* `dovecot::service`: This class handles services.
 
 ### Defined types
 
-* [`dovecot::config`](#dovecot--config): this type manages a single config entry
-* [`dovecot::configentry`](#dovecot--configentry): manages a single dovecot config entry
-* [`dovecot::configfile`](#dovecot--configfile): manages a single dovecot config file
-* [`dovecot::extconfigfile`](#dovecot--extconfigfile): resource for external config files providing a very basic
-key-value interface
-* [`dovecot::file`](#dovecot--file): simple file resource that notifies the dovecot service.
-* [`dovecot::sieve`](#dovecot--sieve): simple sieve script resource that gets compiled by sievec and
-notifies the dovecot service.
+* [`dovecot::config`](#dovecot--config): This type manages a single config entry.
+* [`dovecot::configentry`](#dovecot--configentry): Manages a single dovecot config entry.
+* [`dovecot::configfile`](#dovecot--configfile): Manages a single dovecot config file
+* [`dovecot::extconfigfile`](#dovecot--extconfigfile): Resource for external config files providing a very basic key-value interface.
+* [`dovecot::file`](#dovecot--file): Simple file resource that notifies the dovecot service.
+* [`dovecot::sieve`](#dovecot--sieve): Simple sieve script resource that gets compiled by sievec and
 
 ### Functions
 
@@ -42,8 +37,6 @@ notifies the dovecot service.
 
 ### <a name="dovecot"></a>`dovecot`
 
-This class allows simple configuration of the dovecot imap server.
-
 There is no semantic abstraction done in this class, all config
 parameters are passed directly to dovecot via config files.
 
@@ -52,7 +45,6 @@ parameters are passed directly to dovecot via config files.
 ##### Using a profile to load merged values from hiera:
 
 ```puppet
-
 $config = hiera_hash("${title}::config", {})
 $configs = hiera_hash("${title}::configs", {})
 $plugins = hiera_array("${title}::plugins", undef)
@@ -70,50 +62,74 @@ The following parameters are available in the `dovecot` class:
 * [`config`](#-dovecot--config)
 * [`config_path`](#-dovecot--config_path)
 * [`configs`](#-dovecot--configs)
-* [`package_ensure`](#-dovecot--package_ensure)
-* [`package_manage`](#-dovecot--package_manage)
-* [`plugin`](#-dovecot--plugin)
-* [`plugins`](#-dovecot--plugins)
-* [`poolmon_manage`](#-dovecot--poolmon_manage)
-* [`purge_unmanaged`](#-dovecot--purge_unmanaged)
-* [`service_enable`](#-dovecot--service_enable)
-* [`service_ensure`](#-dovecot--service_ensure)
-* [`service_manage`](#-dovecot--service_manage)
-* [`service_name`](#-dovecot--service_name)
 * [`configs_mode`](#-dovecot--configs_mode)
+* [`directory_private_manage`](#-dovecot--directory_private_manage)
 * [`extconfigs`](#-dovecot--extconfigs)
 * [`extconfigs_mode`](#-dovecot--extconfigs_mode)
+* [`package_ensure`](#-dovecot--package_ensure)
+* [`package_manage`](#-dovecot--package_manage)
 * [`package_name`](#-dovecot--package_name)
+* [`plugin`](#-dovecot--plugin)
+* [`plugins`](#-dovecot--plugins)
 * [`poolmon_archive_params`](#-dovecot--poolmon_archive_params)
 * [`poolmon_basepath`](#-dovecot--poolmon_basepath)
 * [`poolmon_config`](#-dovecot--poolmon_config)
 * [`poolmon_config_file`](#-dovecot--poolmon_config_file)
 * [`poolmon_exec`](#-dovecot--poolmon_exec)
+* [`poolmon_manage`](#-dovecot--poolmon_manage)
 * [`poolmon_service_enable`](#-dovecot--poolmon_service_enable)
 * [`poolmon_service_ensure`](#-dovecot--poolmon_service_ensure)
 * [`poolmon_service_file`](#-dovecot--poolmon_service_file)
 * [`poolmon_service_mode`](#-dovecot--poolmon_service_mode)
 * [`poolmon_service_provider`](#-dovecot--poolmon_service_provider)
 * [`poolmon_version`](#-dovecot--poolmon_version)
-* [`directory_private_manage`](#-dovecot--directory_private_manage)
+* [`purge_unmanaged`](#-dovecot--purge_unmanaged)
+* [`service_enable`](#-dovecot--service_enable)
+* [`service_ensure`](#-dovecot--service_ensure)
+* [`service_manage`](#-dovecot--service_manage)
+* [`service_name`](#-dovecot--service_name)
 
 ##### <a name="-dovecot--config"></a>`config`
 
 Data type: `Hash`
 
-a hash of config file entries, with nested hashes parsed as sections
+A hash of config file entries, with nested hashes parsed as sections.
 
 ##### <a name="-dovecot--config_path"></a>`config_path`
 
 Data type: `String`
 
-the path to the dovecot config dir
+The path to the dovecot config dir.
 
 ##### <a name="-dovecot--configs"></a>`configs`
 
 Data type: `Hash`
 
-a hash of conf.d file names to $config-style hashes
+A hash of conf.d file names to $config-style hashes.
+
+##### <a name="-dovecot--configs_mode"></a>`configs_mode`
+
+Data type: `String`
+
+The file permissions that should be applied.
+
+##### <a name="-dovecot--directory_private_manage"></a>`directory_private_manage`
+
+Data type: `Boolean`
+
+Whether to manage the private directory.
+
+##### <a name="-dovecot--extconfigs"></a>`extconfigs`
+
+Data type: `Hash`
+
+A hash of external config files.
+
+##### <a name="-dovecot--extconfigs_mode"></a>`extconfigs_mode`
+
+Data type: `String`
+
+The file permissions that should be applied.
 
 ##### <a name="-dovecot--package_ensure"></a>`package_ensure`
 
@@ -126,19 +142,55 @@ Values: 'present', 'latest', or a specific version number. Default value: 'prese
 
 Data type: `Boolean`
 
-whether to install the dovecot core and plugin packages
+Whether to install the dovecot core and plugin packages.
+
+##### <a name="-dovecot--package_name"></a>`package_name`
+
+Data type: `Array[String]`
+
+The name of the main dovecot package.
 
 ##### <a name="-dovecot--plugin"></a>`plugin`
 
 Data type: `Hash`
 
-contains a package_name parameter for each plugin (if available)
+Contains a package_name parameter for each plugin (if available).
 
 ##### <a name="-dovecot--plugins"></a>`plugins`
 
 Data type: `Array[String[1]]`
 
-the list of plugins to install
+The list of plugins to install.
+
+##### <a name="-dovecot--poolmon_archive_params"></a>`poolmon_archive_params`
+
+Data type: `Hash`
+
+Additional parameters that should be passed through to the `archive` resource.
+
+##### <a name="-dovecot--poolmon_basepath"></a>`poolmon_basepath`
+
+Data type: `String`
+
+The base path for installing poolmon.
+
+##### <a name="-dovecot--poolmon_config"></a>`poolmon_config`
+
+Data type: `Hash`
+
+A list of config options.
+
+##### <a name="-dovecot--poolmon_config_file"></a>`poolmon_config_file`
+
+Data type: `String`
+
+The path and filename of the configuration file.
+
+##### <a name="-dovecot--poolmon_exec"></a>`poolmon_exec`
+
+Data type: `String`
+
+The path to the poolmon binary.
 
 ##### <a name="-dovecot--poolmon_manage"></a>`poolmon_manage`
 
@@ -146,11 +198,47 @@ Data type: `Boolean`
 
 Whether to manage the poolmon service. Default value: false.
 
+##### <a name="-dovecot--poolmon_service_enable"></a>`poolmon_service_enable`
+
+Data type: `Boolean`
+
+Whether the poolmon service should be configured for automatic startup.
+
+##### <a name="-dovecot--poolmon_service_ensure"></a>`poolmon_service_ensure`
+
+Data type: `Enum['running', 'stopped']`
+
+The desired state for the service.
+
+##### <a name="-dovecot--poolmon_service_file"></a>`poolmon_service_file`
+
+Data type: `String`
+
+The path to the service file.
+
+##### <a name="-dovecot--poolmon_service_mode"></a>`poolmon_service_mode`
+
+Data type: `String`
+
+File permissions for the service file.
+
+##### <a name="-dovecot--poolmon_service_provider"></a>`poolmon_service_provider`
+
+Data type: `Enum['init', 'rc', 'systemd']`
+
+The provider used to handle services, e.g. systemd.
+
+##### <a name="-dovecot--poolmon_version"></a>`poolmon_version`
+
+Data type: `String`
+
+The version of poolmon that should be installed.
+
 ##### <a name="-dovecot--purge_unmanaged"></a>`purge_unmanaged`
 
 Data type: `Boolean`
 
-whether to purge all unmanaged files in the dovecot directory
+Whether to purge all unmanaged files in the dovecot directory.
 
 ##### <a name="-dovecot--service_enable"></a>`service_enable`
 
@@ -168,7 +256,7 @@ Whether the dovecot service should be running. Default value: 'running'.
 
 Data type: `Boolean`
 
-whether to manage the dovecot service
+Whether to manage the dovecot service.
 
 ##### <a name="-dovecot--service_name"></a>`service_name`
 
@@ -176,108 +264,9 @@ Data type: `String`
 
 The dovecot service to manage. Default value: varies by operating system.
 
-##### <a name="-dovecot--configs_mode"></a>`configs_mode`
-
-Data type: `String`
-
-
-
-##### <a name="-dovecot--extconfigs"></a>`extconfigs`
-
-Data type: `Hash`
-
-
-
-##### <a name="-dovecot--extconfigs_mode"></a>`extconfigs_mode`
-
-Data type: `String`
-
-
-
-##### <a name="-dovecot--package_name"></a>`package_name`
-
-Data type: `Array[String]`
-
-
-
-##### <a name="-dovecot--poolmon_archive_params"></a>`poolmon_archive_params`
-
-Data type: `Hash`
-
-
-
-##### <a name="-dovecot--poolmon_basepath"></a>`poolmon_basepath`
-
-Data type: `String`
-
-
-
-##### <a name="-dovecot--poolmon_config"></a>`poolmon_config`
-
-Data type: `Hash`
-
-
-
-##### <a name="-dovecot--poolmon_config_file"></a>`poolmon_config_file`
-
-Data type: `String`
-
-
-
-##### <a name="-dovecot--poolmon_exec"></a>`poolmon_exec`
-
-Data type: `String`
-
-
-
-##### <a name="-dovecot--poolmon_service_enable"></a>`poolmon_service_enable`
-
-Data type: `Boolean`
-
-
-
-##### <a name="-dovecot--poolmon_service_ensure"></a>`poolmon_service_ensure`
-
-Data type: `Enum['running', 'stopped']`
-
-
-
-##### <a name="-dovecot--poolmon_service_file"></a>`poolmon_service_file`
-
-Data type: `String`
-
-
-
-##### <a name="-dovecot--poolmon_service_mode"></a>`poolmon_service_mode`
-
-Data type: `String`
-
-
-
-##### <a name="-dovecot--poolmon_service_provider"></a>`poolmon_service_provider`
-
-Data type: `Enum['init', 'rc', 'systemd']`
-
-
-
-##### <a name="-dovecot--poolmon_version"></a>`poolmon_version`
-
-Data type: `String`
-
-
-
-##### <a name="-dovecot--directory_private_manage"></a>`directory_private_manage`
-
-Data type: `Boolean`
-
-
-
 ## Defined types
 
 ### <a name="dovecot--config"></a>`dovecot::config`
-
-dovecot::config
-===========================
 
 Dovecot uses its own config format. This format basically allows to define a
 hierarchy of configuration sections (and syntactically identical filters, so
@@ -361,7 +350,7 @@ Default value: `undef`
 
 ##### <a name="-dovecot--config--value"></a>`value`
 
-Data type: `Any`
+Data type: `Variant[Integer, String]`
 
 the value of this config entry.
 
@@ -384,8 +373,7 @@ Default value: `'present'`
 
 ### <a name="dovecot--configentry"></a>`dovecot::configentry`
 
-dovecot::configentry
-===========================
+Manages a single dovecot config entry.
 
 * **Note** This class is only for internal use, use dovecot::config instead.
 
@@ -396,38 +384,12 @@ dovecot::configentry
 
 The following parameters are available in the `dovecot::configentry` defined type:
 
+* [`comment`](#-dovecot--configentry--comment)
+* [`ensure`](#-dovecot--configentry--ensure)
 * [`file`](#-dovecot--configentry--file)
 * [`key`](#-dovecot--configentry--key)
 * [`sections`](#-dovecot--configentry--sections)
 * [`value`](#-dovecot--configentry--value)
-* [`comment`](#-dovecot--configentry--comment)
-* [`ensure`](#-dovecot--configentry--ensure)
-
-##### <a name="-dovecot--configentry--file"></a>`file`
-
-Data type: `Stdlib::Absolutepath`
-
-the file to put the entry in
-
-##### <a name="-dovecot--configentry--key"></a>`key`
-
-Data type: `String`
-
-the entry's key, or !include/!include_try
-
-##### <a name="-dovecot--configentry--sections"></a>`sections`
-
-Data type: `Array[String]`
-
-the entry's sections as an array
-
-Default value: `[]`
-
-##### <a name="-dovecot--configentry--value"></a>`value`
-
-Data type: `Any`
-
-the entry's value
 
 ##### <a name="-dovecot--configentry--comment"></a>`comment`
 
@@ -441,16 +403,41 @@ Default value: `undef`
 
 Data type: `Enum['present', 'absent']`
 
-whether the entry should be `present` or `absent`
+Whether the entry should be `present` or `absent`.
 
 Default value: `'present'`
 
+##### <a name="-dovecot--configentry--file"></a>`file`
+
+Data type: `Stdlib::Absolutepath`
+
+The file to put the entry in.
+
+##### <a name="-dovecot--configentry--key"></a>`key`
+
+Data type: `String`
+
+The entry's key, or !include/!include_try.
+
+##### <a name="-dovecot--configentry--sections"></a>`sections`
+
+Data type: `Array[String]`
+
+The entry's sections as an array.
+
+Default value: `[]`
+
+##### <a name="-dovecot--configentry--value"></a>`value`
+
+Data type: `Variant[Integer, String]`
+
+The entry's value.
+
 ### <a name="dovecot--configfile"></a>`dovecot::configfile`
 
-dovecot::configfile
-===========================
+Manages a single dovecot config file
 
-* **Note** This class is only for internal use, use dovecot::config instead.
+* **Note** This define is only for internal use, use dovecot::config instead.
 
 * **See also**
   * dovecot::config
@@ -459,27 +446,19 @@ dovecot::configfile
 
 The following parameters are available in the `dovecot::configfile` defined type:
 
-* [`file`](#-dovecot--configfile--file)
 * [`comment`](#-dovecot--configfile--comment)
 * [`ensure`](#-dovecot--configfile--ensure)
-* [`owner`](#-dovecot--configfile--owner)
+* [`file`](#-dovecot--configfile--file)
 * [`group`](#-dovecot--configfile--group)
 * [`mode`](#-dovecot--configfile--mode)
-
-##### <a name="-dovecot--configfile--file"></a>`file`
-
-Data type: `Stdlib::Absolutepath`
-
-the file to put the entry in
-
-Default value: `$title`
+* [`owner`](#-dovecot--configfile--owner)
 
 ##### <a name="-dovecot--configfile--comment"></a>`comment`
 
 Data type: `Optional[String]`
 
-an optional comment to be printed at the top of the file instead of
-the default warning
+An optional comment to be printed at the top of the file instead of
+the default warning.
 
 Default value: `undef`
 
@@ -487,64 +466,103 @@ Default value: `undef`
 
 Data type: `Enum['present', 'absent']`
 
-whether the file should be `present` or `absent`
+Whether the file should be `present` or `absent`.
 
 Default value: `'present'`
 
-##### <a name="-dovecot--configfile--owner"></a>`owner`
+##### <a name="-dovecot--configfile--file"></a>`file`
 
-Data type: `Any`
+Data type: `Stdlib::Absolutepath`
 
+The file to put the entry in.
 
-
-Default value: `'root'`
+Default value: `$title`
 
 ##### <a name="-dovecot--configfile--group"></a>`group`
 
-Data type: `Any`
+Data type: `Variant[Integer, String]`
 
-
+The group that should own the file.
 
 Default value: `0`
 
 ##### <a name="-dovecot--configfile--mode"></a>`mode`
 
-Data type: `Any`
+Data type: `Variant[Integer, String]`
 
-
+The permissions for the file.
 
 Default value: `$dovecot::configs_mode`
 
+##### <a name="-dovecot--configfile--owner"></a>`owner`
+
+Data type: `Variant[Integer, String]`
+
+The user that should own the file.
+
+Default value: `'root'`
+
 ### <a name="dovecot--extconfigfile"></a>`dovecot::extconfigfile`
 
-dovecot::extconfigfile
-===========================
+Resource for external config files providing a very basic key-value interface.
 
 #### Parameters
 
 The following parameters are available in the `dovecot::extconfigfile` defined type:
 
-* [`entries`](#-dovecot--extconfigfile--entries)
-* [`relpath`](#-dovecot--extconfigfile--relpath)
-* [`warn`](#-dovecot--extconfigfile--warn)
 * [`additional_content`](#-dovecot--extconfigfile--additional_content)
+* [`entries`](#-dovecot--extconfigfile--entries)
 * [`group`](#-dovecot--extconfigfile--group)
 * [`mode`](#-dovecot--extconfigfile--mode)
 * [`owner`](#-dovecot--extconfigfile--owner)
+* [`relpath`](#-dovecot--extconfigfile--relpath)
+* [`warn`](#-dovecot--extconfigfile--warn)
+
+##### <a name="-dovecot--extconfigfile--additional_content"></a>`additional_content`
+
+Data type: `Optional[String]`
+
+Additional content for the file.
+
+Default value: `undef`
 
 ##### <a name="-dovecot--extconfigfile--entries"></a>`entries`
 
 Data type: `Hash[String, String]`
 
-a hash of string=string entries. All values will be
+A hash of string=string entries. All values will be
 written as-is to the file, any escaping must already
 be applied.
+
+##### <a name="-dovecot--extconfigfile--group"></a>`group`
+
+Data type: `Variant[Integer, String]`
+
+The group that should own the file.
+
+Default value: `0`
+
+##### <a name="-dovecot--extconfigfile--mode"></a>`mode`
+
+Data type: `Variant[Integer, String]`
+
+The permissions for the file.
+
+Default value: `$dovecot::extconfigs_mode`
+
+##### <a name="-dovecot--extconfigfile--owner"></a>`owner`
+
+Data type: `Variant[Integer, String]`
+
+The user that should own the file.
+
+Default value: `'root'`
 
 ##### <a name="-dovecot--extconfigfile--relpath"></a>`relpath`
 
 Data type: `String`
 
-the path of the external config file relative to
+The path of the external config file relative to
 dovecot::config_path, including the desired extension.
 Defaults to the resource title.
 
@@ -554,98 +572,64 @@ Default value: `$title`
 
 Data type: `Variant[Boolean, String]`
 
-whether to prepend the default warning (if `true`), a
+Whether to prepend the default warning (if `true`), a
 custom warning (if a `String`), or nothing at all.
 
 Default value: `true`
 
-##### <a name="-dovecot--extconfigfile--additional_content"></a>`additional_content`
-
-Data type: `Optional[String]`
-
-
-
-Default value: `undef`
-
-##### <a name="-dovecot--extconfigfile--group"></a>`group`
-
-Data type: `Any`
-
-
-
-Default value: `0`
-
-##### <a name="-dovecot--extconfigfile--mode"></a>`mode`
-
-Data type: `Any`
-
-
-
-Default value: `$dovecot::extconfigs_mode`
-
-##### <a name="-dovecot--extconfigfile--owner"></a>`owner`
-
-Data type: `Any`
-
-
-
-Default value: `'root'`
-
 ### <a name="dovecot--file"></a>`dovecot::file`
 
-dovecot::file
-===========================
+Simple file resource that notifies the dovecot service.
 
 #### Parameters
 
 The following parameters are available in the `dovecot::file` defined type:
 
 * [`content`](#-dovecot--file--content)
-* [`path`](#-dovecot--file--path)
 * [`group`](#-dovecot--file--group)
 * [`mode`](#-dovecot--file--mode)
 * [`owner`](#-dovecot--file--owner)
+* [`path`](#-dovecot--file--path)
 
 ##### <a name="-dovecot--file--content"></a>`content`
 
-Data type: `Any`
+Data type: `String`
 
-
-
-##### <a name="-dovecot--file--path"></a>`path`
-
-Data type: `Any`
-
-
+The content of the file.
 
 ##### <a name="-dovecot--file--group"></a>`group`
 
-Data type: `Any`
+Data type: `Variant[Integer, String]`
 
-
+The group that should own the file.
 
 Default value: `0`
 
 ##### <a name="-dovecot--file--mode"></a>`mode`
 
-Data type: `Any`
+Data type: `Variant[Integer, String]`
 
-
+The permissions for the file.
 
 Default value: `'0644'`
 
 ##### <a name="-dovecot--file--owner"></a>`owner`
 
-Data type: `Any`
+Data type: `Variant[Integer, String]`
 
-
+The user that should own the file.
 
 Default value: `'root'`
 
+##### <a name="-dovecot--file--path"></a>`path`
+
+Data type: `Stdlib::Absolutepath`
+
+The target path for the file.
+
 ### <a name="dovecot--sieve"></a>`dovecot::sieve`
 
-dovecot::sievec
-===========================
+notifies the dovecot service.
 
 #### Parameters
 
@@ -661,41 +645,41 @@ The following parameters are available in the `dovecot::sieve` defined type:
 
 ##### <a name="-dovecot--sieve--content"></a>`content`
 
-Data type: `Any`
+Data type: `String`
 
-
+The content of the file.
 
 Default value: `undef`
 
 ##### <a name="-dovecot--sieve--group"></a>`group`
 
-Data type: `Any`
+Data type: `Variant[Integer, String]`
 
-
+The group that should own the file.
 
 Default value: `0`
 
 ##### <a name="-dovecot--sieve--mode"></a>`mode`
 
-Data type: `Any`
+Data type: `Variant[Integer, String]`
 
-
+The permissions for the file.
 
 Default value: `'0644'`
 
 ##### <a name="-dovecot--sieve--owner"></a>`owner`
 
-Data type: `Any`
+Data type: `Variant[Integer, String]`
 
-
+The user that should own the file.
 
 Default value: `'root'`
 
 ##### <a name="-dovecot--sieve--path"></a>`path`
 
-Data type: `Any`
+Data type: `Stdlib::Absolutepath`
 
-
+The target path for the file.
 
 Default value: `$name`
 
@@ -703,15 +687,15 @@ Default value: `$name`
 
 Data type: `Stdlib::Absolutepath`
 
-
+The path to the sievec binary.
 
 Default value: `lookup('dovecot::sieve::sievec')`
 
 ##### <a name="-dovecot--sieve--source"></a>`source`
 
-Data type: `Any`
+Data type: `Optional[String]`
 
-
+Optional source for the file resource to use instead of `$content`.
 
 Default value: `undef`
 
@@ -767,9 +751,6 @@ a hash of params passed to the {dovecot::config} resource (:file will be overrid
 
 Type: Puppet Language
 
-Function: dovecot::create_config_resources()
-==================
-
 Create dovecot::config resources from a nested hash, suitable for
 conveniently loading values from hiera.
 The key-value pairs from the hash represent config keys and values
@@ -777,9 +758,6 @@ passed to dovecot::config for simple values, Hash values recursively
 create nested sections, and Array values are joined with spaces.
 
 #### `dovecot::create_config_resources(Hash[String, NotUndef] $config_hash, Hash $params = {}, Array[String] $sections = [])`
-
-Function: dovecot::create_config_resources()
-==================
 
 Create dovecot::config resources from a nested hash, suitable for
 conveniently loading values from hiera.

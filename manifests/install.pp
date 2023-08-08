@@ -1,5 +1,5 @@
+# @summary This class handles packages.
 # @api private 
-# This class handles packages. Avoid modifying private classes.
 class dovecot::install inherits dovecot {
   if ($dovecot::package_manage) {
     package { $dovecot::package_name:

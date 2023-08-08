@@ -1,16 +1,24 @@
-# dovecot::configentry
-# ===========================
-#
-# @summary manages a single dovecot config entry
+# @summary Manages a single dovecot config entry.
 #
 # @note This class is only for internal use, use dovecot::config instead.
 #
-# @param file     the file to put the entry in
-# @param key      the entry's key, or !include/!include_try
-# @param sections the entry's sections as an array
-# @param value    the entry's value
-# @param comment  an optional comment to be printed above the entry
-# @param ensure   whether the entry should be `present` or `absent`
+# @param comment
+#   an optional comment to be printed above the entry
+#
+# @param ensure
+#   Whether the entry should be `present` or `absent`.
+#
+# @param file
+#   The file to put the entry in.
+#
+# @param key
+#   The entry's key, or !include/!include_try.
+#
+# @param sections
+#   The entry's sections as an array.
+#
+# @param value
+#   The entry's value.
 #
 # @see dovecot::config
 #
@@ -19,7 +27,7 @@
 define dovecot::configentry (
   Stdlib::Absolutepath $file,
   String $key,
-  $value,
+  Variant[Integer, String] $value,
   Optional[String] $comment = undef,
   Enum['present', 'absent'] $ensure = 'present',
   Array[String] $sections = [],
@@ -36,12 +44,12 @@ define dovecot::configentry (
       $section_name = $sections[$i - 1]
 
       ensure_resource('concat::fragment', "dovecot ${file} config ${section} 01 section start", {
-        target => $file,
-        content => "${indent}${section_name} {\n",
+          target => $file,
+          content => "${indent}${section_name} {\n",
       })
       ensure_resource('concat::fragment', "dovecot ${file} config ${section} 05 section end", {
-        target => $file,
-        content => "${indent}}\n",
+          target => $file,
+          content => "${indent}}\n",
       })
     }
   }
@@ -65,7 +73,7 @@ define dovecot::configentry (
       }
     }
     /\A!/: {
-        fail("Key must not start with an exclamation mark: ${key}")
+      fail("Key must not start with an exclamation mark: ${key}")
     }
     default: {
       $printed_value = dovecot::print_config_value($value)
@@ -76,4 +84,3 @@ define dovecot::configentry (
     }
   }
 }
-

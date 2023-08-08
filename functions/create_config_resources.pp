@@ -1,6 +1,3 @@
-# Function: dovecot::create_config_resources()
-# ==================
-#
 # @summary create dovecot::config resources from a nested hash (e.g. from hiera)
 #
 # Create dovecot::config resources from a nested hash, suitable for
@@ -19,7 +16,7 @@
 #
 # @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
-function dovecot::create_config_resources(Hash[String, NotUndef] $config_hash, Hash $params={}, Array[String] $sections=[]) {
+function dovecot::create_config_resources(Hash[String, NotUndef] $config_hash, Hash $params = {}, Array[String] $sections = []) {
   $config_hash.each |$key, $value| {
     case $value {
       Hash: {
@@ -27,14 +24,14 @@ function dovecot::create_config_resources(Hash[String, NotUndef] $config_hash, H
       }
       Array: {
         # be lazy and delegate to ourself. Non-string values will be stringified without mercy!
-        dovecot::create_config_resources({$key => join($value, ' ')}, $params, $sections)
+        dovecot::create_config_resources({ $key => join($value, ' ') }, $params, $sections)
       }
       default: {
         dovecot::config { "${params[file]}:${join($sections + $key, '.')}":
           sections => $sections,
           key      => $key,
           value    => $value,
-          *        => $params
+          *        => $params,
         }
       }
     }

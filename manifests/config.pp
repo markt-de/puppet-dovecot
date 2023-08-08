@@ -1,7 +1,4 @@
-# dovecot::config
-# ===========================
-#
-# @summary this type manages a single config entry
+# @summary This type manages a single config entry.
 # 
 # Dovecot uses its own config format. This format basically allows to define a 
 # hierarchy of configuration sections (and syntactically identical filters, so
@@ -70,7 +67,7 @@
 # @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
 define dovecot::config (
-  $value,
+  Variant[Integer, String] $value,
   Optional[String] $comment = undef,
   Enum['present', 'absent'] $ensure = 'present',
   Optional[String] $file = undef,
@@ -110,4 +107,3 @@ define dovecot::config (
     notify   => Class['dovecot::service'],
   }
 }
-

@@ -1,5 +1,5 @@
+# @summary This class handles dovecot configuration.
 # @api private 
-# This class handles dovecot configuration. Avoid modifying private classes.
 class dovecot::configuration inherits dovecot {
   if ($dovecot::purge_unmanaged) {
     file { 'purge unmanaged files':
@@ -8,7 +8,7 @@ class dovecot::configuration inherits dovecot {
       recurse => true,
       purge   => true,
       force   => true,
-      before  => File["${dovecot::config_path}/conf.d"]
+      before  => File["${dovecot::config_path}/conf.d"],
     }
   }
 

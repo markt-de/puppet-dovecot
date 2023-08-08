@@ -25,9 +25,7 @@ function dovecot::create_config_file_resources(
   Hash $params = {}
 ) {
   $configfile_hash.each |$key, $value| {
-    $file_params = {
-      file => $key
-    } + $params
+    $file_params = { file => $key } + $params
     dovecot::create_config_resources($value, $file_params)
     if $include_in_main_config {
       dovecot::config { "dovecot.conf !include ${key} ${value}":

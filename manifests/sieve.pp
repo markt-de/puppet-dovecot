@@ -1,21 +1,38 @@
-# dovecot::sievec
-# ===========================
+# @summary Simple sieve script resource that gets compiled by sievec and
+# notifies the dovecot service.
 #
-# @summary simple sieve script resource that gets compiled by sievec and
-#   notifies the dovecot service.
+# @param content
+#   The content of the file.
+#
+# @param group
+#   The group that should own the file.
+#
+# @param mode
+#   The permissions for the file.
+#
+# @param owner
+#   The user that should own the file.
+#
+# @param path
+#   The target path for the file.
+#
+# @param sievec
+#   The path to the sievec binary.
+#
+# @param source
+#   Optional source for the file resource to use instead of `$content`.
 #
 # @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
-define dovecot::sieve(
-  $content = undef,
-  $group = 0,
-  $mode = '0644',
-  $owner = 'root',
-  $path = $name,
+define dovecot::sieve (
+  String $content = undef,
+  Variant[Integer, String] $group = 0,
+  Variant[Integer, String] $mode = '0644',
+  Variant[Integer, String] $owner = 'root',
+  Stdlib::Absolutepath $path = $name,
   Stdlib::Absolutepath $sievec = lookup('dovecot::sieve::sievec'),
-  $source = undef,
+  Optional[String] $source = undef,
 ) {
-
   file { "dovecot sieve ${title}":
     path    => $path,
     owner   => $owner,

@@ -29,8 +29,8 @@ function dovecot::create_extconfigfile_resources(
         $_additional_content = undef
       }
       Struct[{
-        entries => Hash[String, String],
-        Optional[additional_content] => Optional[String],
+          entries => Hash[String, String],
+          Optional[additional_content] => Optional[String],
       }]: {
         $_entries = $value[entries]
         $_additional_content = $value[additional_content]
