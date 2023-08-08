@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        puppet_version: [6, 7]
+        puppet_version: [7]
 
     name: Check / Puppet ${{ matrix.puppet_version }}
     runs-on: ubuntu-22.04
