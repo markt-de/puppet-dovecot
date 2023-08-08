@@ -27,7 +27,7 @@
 define dovecot::configentry (
   Stdlib::Absolutepath $file,
   String $key,
-  Variant[Integer, String] $value,
+  Variant[Boolean, Integer, String] $value,
   Optional[String] $comment = undef,
   Enum['present', 'absent'] $ensure = 'present',
   Array[String] $sections = [],

@@ -67,7 +67,7 @@
 # @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
 define dovecot::config (
-  Variant[Integer, String] $value,
+  Variant[Boolean, Integer, String] $value,
   Optional[String] $comment = undef,
   Enum['present', 'absent'] $ensure = 'present',
   Optional[String] $file = undef,

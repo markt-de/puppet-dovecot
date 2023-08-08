@@ -88,6 +88,7 @@ The following parameters are available in the `dovecot` class:
 * [`service_ensure`](#-dovecot--service_ensure)
 * [`service_manage`](#-dovecot--service_manage)
 * [`service_name`](#-dovecot--service_name)
+* [`sievec`](#-dovecot--sievec)
 
 ##### <a name="-dovecot--config"></a>`config`
 
@@ -264,6 +265,12 @@ Data type: `String`
 
 The dovecot service to manage. Default value: varies by operating system.
 
+##### <a name="-dovecot--sievec"></a>`sievec`
+
+Data type: `Stdlib::Absolutepath`
+
+The path to the sievec binary.
+
 ## Defined types
 
 ### <a name="dovecot--config"></a>`dovecot::config`
@@ -350,7 +357,7 @@ Default value: `undef`
 
 ##### <a name="-dovecot--config--value"></a>`value`
 
-Data type: `Variant[Integer, String]`
+Data type: `Variant[Boolean, Integer, String]`
 
 the value of this config entry.
 
@@ -429,7 +436,7 @@ Default value: `[]`
 
 ##### <a name="-dovecot--configentry--value"></a>`value`
 
-Data type: `Variant[Integer, String]`
+Data type: `Variant[Boolean, Integer, String]`
 
 The entry's value.
 
@@ -689,7 +696,7 @@ Data type: `Stdlib::Absolutepath`
 
 The path to the sievec binary.
 
-Default value: `lookup('dovecot::sieve::sievec')`
+Default value: `$dovecot::sievec`
 
 ##### <a name="-dovecot--sieve--source"></a>`source`
 
