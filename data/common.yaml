@@ -52,4 +52,4 @@ dovecot::service_enable: true
 dovecot::service_ensure: running
 dovecot::service_manage: true
 dovecot::service_name: dovecot
-dovecot::sieve::sievec: '/usr/bin/sievec'
+dovecot::sievec: '/usr/bin/sievec'

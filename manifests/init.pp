@@ -91,6 +91,9 @@
 # @param service_name
 #   The dovecot service to manage. Default value: varies by operating system.
 #
+# @param sievec
+#   The path to the sievec binary.
+#
 # @example Using a profile to load merged values from hiera:
 #    $config = hiera_hash("${title}::config", {})
 #    $configs = hiera_hash("${title}::configs", {})
@@ -133,6 +136,7 @@ class dovecot (
   Enum['running', 'stopped'] $service_ensure,
   Boolean $service_manage,
   String $service_name,
+  Stdlib::Absolutepath $sievec,
 ) {
   contain dovecot::install
   contain dovecot::configuration

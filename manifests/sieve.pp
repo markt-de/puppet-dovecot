@@ -30,7 +30,7 @@ define dovecot::sieve (
   Variant[Integer, String] $mode = '0644',
   Variant[Integer, String] $owner = 'root',
   Stdlib::Absolutepath $path = $name,
-  Stdlib::Absolutepath $sievec = lookup('dovecot::sieve::sievec'),
+  Stdlib::Absolutepath $sievec = $dovecot::sievec,
   Optional[String] $source = undef,
 ) {
   file { "dovecot sieve ${title}":
