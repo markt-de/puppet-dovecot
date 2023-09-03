@@ -2,7 +2,10 @@
 # notifies the dovecot service.
 #
 # @param content
-#   The content of the file.
+#   The desired content of the file, as string. This attribute is mutually exclusive with `source`.
+#
+# @param source
+#   A source file, which will be copied into place on the local system. This attribute is mutually exclusive with `content`.
 #
 # @param group
 #   The group that should own the file.
@@ -19,19 +22,16 @@
 # @param sievec
 #   The path to the sievec binary.
 #
-# @param source
-#   Optional source for the file resource to use instead of `$content`.
-#
 # @author Bernhard Frauendienst <puppet@nospam.obeliks.de>
 #
 define dovecot::sieve (
-  String $content = undef,
+  Optional[String] $content = undef,
+  Optional[String] $source = undef,
   Variant[Integer, String] $group = 0,
   Variant[Integer, String] $mode = '0644',
   Variant[Integer, String] $owner = 'root',
   Stdlib::Absolutepath $path = $name,
   Stdlib::Absolutepath $sievec = $dovecot::sievec,
-  Optional[String] $source = undef,
 ) {
   file { "dovecot sieve ${title}":
     path    => $path,
