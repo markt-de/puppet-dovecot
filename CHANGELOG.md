@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [4.2.0] - 2024-03-13
+
+## Changed
+- Allow `dovecot::sieve` to be configured with both content and source ([#35])
+- Update PDK to 3.0.1 ([#36])
+
 ## [4.1.0] - 2023-08-08
 
 ## Added
@@ -126,7 +132,8 @@ First stable release, now requires Puppet 4.9
 ## 0.1.0 - 2017-07-31
 Initial release
 
-[Unreleased]: https://github.com/markt-de/puppet-dovecot/compare/v4.1.0...HEAD
+[Unreleased]: https://github.com/markt-de/puppet-dovecot/compare/v4.2.0...HEAD
+[4.2.0]: https://github.com/markt-de/puppet-dovecot/compare/v4.1.0...v4.2.0
 [4.1.0]: https://github.com/markt-de/puppet-dovecot/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/markt-de/puppet-dovecot/compare/v3.1.0...v4.0.0
 [3.1.0]: https://github.com/markt-de/puppet-dovecot/compare/v3.0.0...v3.1.0
@@ -139,6 +146,8 @@ Initial release
 [1.1.0]: https://github.com/markt-de/puppet-dovecot/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/markt-de/puppet-dovecot/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/markt-de/puppet-dovecot/compare/v0.1.0...v1.0.0
+[#36]: https://github.com/markt-de/puppet-dovecot/pull/36
+[#35]: https://github.com/markt-de/puppet-dovecot/pull/35
 [#31]: https://github.com/markt-de/puppet-dovecot/pull/31
 [#30]: https://github.com/markt-de/puppet-dovecot/pull/30
 [#29]: https://github.com/markt-de/puppet-dovecot/pull/29
