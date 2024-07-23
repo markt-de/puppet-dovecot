@@ -7,7 +7,7 @@ describe 'dovecot' do
       class { 'dovecot':
         plugins => ['lmtp'],
         config => {
-          hostname  => $fqdn,
+          hostname  => $facts['networking']['fqdn'],
           listen    => '*, ::',
           protocols => 'lmtp',
         },
